@@ -42,8 +42,8 @@ theme:
     - toc.follow
   icon:
     repo: fontawesome/brands/github
-  logo: assets/logo.svg
-  favicon: assets/favicon.svg
+  logo: assets/logo-nav.svg
+  favicon: assets/logo-128.png
 
 extra:
   social:

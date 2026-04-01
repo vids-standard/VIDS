@@ -23,7 +23,7 @@ The site deploys automatically to GitHub Pages via the workflow in `.github/work
 
 ### Custom Domain Setup
 
-1. In the GitHub repo → Settings → Pages, set the custom domain to `vidsstandard.org`.
+1. In the GitHub repo (`vids-standard/VIDS`) → Settings → Pages, set the custom domain to `vidsstandard.org`.
 2. At your DNS provider, add:
    - `A` records pointing to GitHub Pages IPs:
      ```
