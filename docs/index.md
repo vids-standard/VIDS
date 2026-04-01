@@ -7,7 +7,7 @@ hide:
 <div class="vids-hero" markdown>
 
 <div style="text-align: center; margin-bottom: 1rem;">
-  <img src="assets/logo.svg" alt="VIDS Logo" style="width: 140px; height: 140px;">
+  <img src="assets/vids-hero-logo.svg" alt="VIDS Logo" style="width: 160px; height: 160px;">
 </div>
 
 # VIDS — Verified Imaging Dataset Standard
