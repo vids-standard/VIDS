@@ -52,7 +52,7 @@ extra:
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/vids-validator/
     - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/groups/medical-imaging-datasets/
+      link: https://www.linkedin.com/groups/18910004/
 
 extra_css:
   - assets/extra.css
