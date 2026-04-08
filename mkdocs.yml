@@ -46,6 +46,9 @@ theme:
   favicon: assets/logo-128.png
 
 extra:
+  analytics:
+    provider: google
+    property: G-38QKGT0LVH
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/vids-standard/vids-standard
