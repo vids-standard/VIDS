@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIDS Online Validator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  :root {
+    --navy: #0F2B46;
+    --teal: #0D7377;
+    --accent: #14919B;
+    --green: #27AE60;
+    --red: #E74C3C;
+    --orange: #F39C12;
+    --gray: #6B7B8D;
+    --ltgray: #D1D9E0;
+    --offwhite: #F7F9FC;
+    --white: #FFFFFF;
+    --bg: #F0F4F8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+
+  .header p {
+    color: var(--gray);
+    font-size: 0.95rem;
+  }
+
+  .header .note {
+    color: var(--teal);
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+  }
+
+  /* ── Drop Zone ── */
+  .drop-zone {
+    border: 2px dashed var(--ltgray);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 1.5rem;
+  }
+
+  .drop-zone:hover, .drop-zone.drag-over {
+    border-color: var(--teal);
+    background: var(--offwhite);
+  }
+
+  .drop-zone .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+  .drop-zone .primary {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+
+  .drop-zone .secondary {
+    font-size: 0.85rem;
+    color: var(--gray);
+  }
+
+  .drop-zone .browse {
+    color: var(--teal);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .drop-zone.processing {
+    border-color: var(--teal);
+    background: var(--offwhite);
+    pointer-events: none;
+  }
+
+  .drop-zone.processing .primary {
+    color: var(--teal);
+  }
+
+  /* ── Results ── */
+  .results {
+    display: none;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+
+  .results.visible { display: block; }
+
+  .results-header {
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--offwhite);
+  }
+
+  .results-header .dataset-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--navy);
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+  }
+
+  .status-badge {
+    padding: 0.25rem 0.8rem;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+
+  .status-pass { background: #E8F8EF; color: var(--green); }
+  .status-fail { background: #FDECEC; color: var(--red); }
+
+  .score-bar {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem 1.2rem;
+    gap: 0.8rem;
+    border-bottom: 1px solid var(--offwhite);
+  }
+
+  .score-num {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .score-pass { color: var(--green); }
+  .score-fail { color: var(--red); }
+
+  .score-detail {
+    font-size: 0.78rem;
+    color: var(--gray);
+  }
+
+  .progress-track {
+    flex: 1;
+    height: 8px;
+    background: var(--offwhite);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s;
+  }
+
+  .profile-info {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.78rem;
+    color: var(--gray);
+    border-bottom: 1px solid var(--offwhite);
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .profile-info span { font-weight: 600; color: var(--navy); }
+
+  .rule-category-header {
+    padding: 0.35rem 1.2rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--offwhite);
+  }
+
+  .rule-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.82rem;
+    border-bottom: 1px solid #F5F7FA;
+  }
+
+  .rule-icon {
+    width: 22px;
+    text-align: center;
+    margin-right: 0.4rem;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+
+  .rule-id {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-weight: 600;
+    width: 44px;
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    padding-top: 1px;
+  }
+
+  .rule-body { flex: 1; }
+
+  .rule-desc {
+    color: var(--navy);
+    font-size: 0.8rem;
+  }
+
+  .rule-detail {
+    font-size: 0.72rem;
+    color: var(--gray);
+    margin-top: 1px;
+  }
+
+  .rule-status {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    min-width: 38px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+    margin-top: 1px;
+  }
+
+  .rs-pass { background: #E8F8EF; color: var(--green); }
+  .rs-fail { background: #FDECEC; color: var(--red); }
+  .rs-warn { background: #FFF3CD; color: var(--orange); }
+  .rs-skip { background: var(--offwhite); color: var(--ltgray); }
+
+  .actions {
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 0.4rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-primary { background: var(--teal); color: var(--white); }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-secondary { background: var(--offwhite); color: var(--navy); }
+  .btn-secondary:hover { background: var(--ltgray); }
+
+  .footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.78rem;
+    color: var(--ltgray);
+  }
+
+  .footer a { color: var(--teal); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  .hidden-input { display: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>VIDS Online Validator</h1>
+    <p>Upload a zipped VIDS dataset and validate against all 21 rules</p>
+    <div class="note">Your data never leaves your browser. All processing happens locally.</div>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <div class="icon">📦</div>
+    <div class="primary">Drop your VIDS dataset zip here</div>
+    <div class="secondary">or <span class="browse" id="browseBtn">browse to select</span></div>
+  </div>
+
+  <input type="file" class="hidden-input" id="fileInput" accept=".zip">
+
+  <div class="results" id="results"></div>
+
+  <div class="footer">
+    VIDS Validator v1.1 · <a href="https://vidsstandard.org">vidsstandard.org</a> · <a href="https://github.com/vids-standard/vids-standard">GitHub</a> · <a href="https://pypi.org/project/vids-validator/">PyPI</a>
+    <br>Princeton Medical Systems © 2026
+  </div>
+</div>
+
+<script>
+// ── File handling ──────────────────────────────────────────
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
+const browseBtn = document.getElementById("browseBtn");
+const resultsDiv = document.getElementById("results");
+
+browseBtn.addEventListener("click", e => { e.stopPropagation(); fileInput.click(); });
+dropZone.addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", e => { if (e.target.files[0]) processZip(e.target.files[0]); });
+
+dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("drag-over"); });
+dropZone.addEventListener("dragleave", () => dropZone.classList.remove("drag-over"));
+dropZone.addEventListener("drop", e => {
+  e.preventDefault();
+  dropZone.classList.remove("drag-over");
+  if (e.dataTransfer.files[0]) processZip(e.dataTransfer.files[0]);
+});
+
+// ── Zip Processing ─────────────────────────────────────────
+async function processZip(file) {
+  if (!file.name.endsWith(".zip")) {
+    alert("Please upload a .zip file");
+    return;
+  }
+
+  dropZone.classList.add("processing");
+  dropZone.querySelector(".primary").textContent = "Validating...";
+  dropZone.querySelector(".secondary").textContent = file.name;
+
+  try {
+    const zip = await JSZip.loadAsync(file);
+    const paths = Object.keys(zip.files);
+
+    // Find dataset root (might be nested in one directory)
+    const root = findRoot(paths);
+    const report = await runValidation(zip, paths, root);
+    renderResults(report, file.name);
+  } catch (err) {
+    alert("Error reading zip: " + err.message);
+  }
+
+  dropZone.classList.remove("processing");
+  dropZone.querySelector(".primary").textContent = "Drop another dataset zip here";
+  dropZone.querySelector(".secondary").innerHTML = 'or <span class="browse" onclick="document.getElementById(\'fileInput\').click()">browse to select</span>';
+}
+
+function findRoot(paths) {
+  // Check if .vids is at top level
+  if (paths.includes(".vids")) return "";
+
+  // Check one level deep (common: dataset-name/.vids)
+  const topDirs = new Set();
+  paths.forEach(p => {
+    const parts = p.split("/");
+    if (parts.length > 1 && parts[0]) topDirs.add(parts[0]);
+  });
+
+  for (const dir of topDirs) {
+    if (paths.includes(dir + "/.vids")) return dir + "/";
+  }
+
+  // Fallback: use first directory as root
+  if (topDirs.size === 1) return [...topDirs][0] + "/";
+
+  return "";
+}
+
+function rel(root, path) { return root + path; }
+
+function hasFile(paths, root, name) {
+  return paths.includes(rel(root, name));
+}
+
+function hasDir(paths, root, prefix) {
+  const full = rel(root, prefix);
+  return paths.some(p => p.startsWith(full));
+}
+
+function findMatching(paths, root, pattern) {
+  const full = root;
+  return paths.filter(p => p.startsWith(full) && matchPattern(p.slice(full.length), pattern));
+}
+
+function matchPattern(relPath, pattern) {
+  if (pattern.startsWith("*")) {
+    return relPath.endsWith(pattern.slice(1));
+  }
+  return relPath.includes(pattern);
+}
+
+async function readJson(zip, path) {
+  const file = zip.file(path);
+  if (!file) return null;
+  try {
+    const text = await file.async("string");
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+
+async function readText(zip, path) {
+  const file = zip.file(path);
+  if (!file) return null;
+  try {
+    return await file.async("string");
+  } catch {
+    return null;
+  }
+}
+
+// ── Validation Engine ──────────────────────────────────────
+async function runValidation(zip, paths, root) {
+  const results = [];
+
+  // Helper
+  const has = name => hasFile(paths, root, name);
+  const hasD = prefix => hasDir(paths, root, prefix);
+
+  // Find subjects
+  const subDirs = new Set();
+  const rlen = root.length;
+  paths.forEach(p => {
+    if (p.startsWith(root)) {
+      const rel = p.slice(rlen);
+      const match = rel.match(/^(sub-[^/]+)\//);
+      if (match) subDirs.add(match[1]);
+    }
+  });
+  const subjects = [...subDirs].sort();
+
+  // Find sessions per subject
+  const subSessions = {};
+  subjects.forEach(sub => {
+    const sessions = new Set();
+    paths.forEach(p => {
+      const prefix = root + sub + "/";
+      if (p.startsWith(prefix)) {
+        const rel = p.slice(prefix.length);
+        const match = rel.match(/^(ses-[^/]+)\//);
+        if (match) sessions.add(match[1]);
+      }
+    });
+    subSessions[sub] = [...sessions].sort();
+  });
+
+  // Detect profile
+  let profile = "full";
+  const vidsContent = await readText(zip, rel(root, ".vids"));
+  if (vidsContent) {
+    const match = vidsContent.match(/profile:\s*(poc|full)/i);
+    if (match) profile = match[1].toLowerCase();
+  }
+
+  // ── S001: .vids marker ──
+  results.push({
+    id: "S001", cat: "Structure",
+    desc: ".vids marker file exists",
+    status: has(".vids") ? "PASS" : "FAIL",
+    detail: has(".vids") ? `Profile: ${profile}` : "Missing .vids file"
+  });
+
+  // ── S002: dataset_description.json ──
+  const dd = await readJson(zip, rel(root, "dataset_description.json"));
+  if (!has("dataset_description.json")) {
+    results.push({ id: "S002", cat: "Structure", desc: "dataset_description.json exists and valid", status: "FAIL", detail: "File missing" });
+  } else if (dd === null) {
+    results.push({ id: "S002", cat: "Structure", desc: "dataset_description.json exists and valid", status: "FAIL", detail: "Invalid JSON" });
+  } else {
+    const required = ["Name", "VIDSVersion", "DatasetVersion", "License", "Description", "Authors"];
+    const missing = required.filter(f => !(f in dd));
+    if (missing.length > 0) {
+      results.push({ id: "S002", cat: "Structure", desc: "dataset_description.json exists and valid", status: "FAIL", detail: "Missing fields: " + missing.join(", ") });
+    } else {
+      results.push({ id: "S002", cat: "Structure", desc: "dataset_description.json exists and valid", status: "PASS", detail: `Name: "${dd.Name}", VIDS ${dd.VIDSVersion}` });
+    }
+  }
+
+  // ── S003: participants ──
+  const hasParticipants = has("participants.json") || has("participants.tsv");
+  results.push({
+    id: "S003", cat: "Structure",
+    desc: "participants.json or .tsv exists",
+    status: hasParticipants ? "PASS" : "FAIL",
+    detail: hasParticipants ? (has("participants.json") ? "JSON format" : "TSV format") : "Neither file found"
+  });
+
+  // ── S004: README.md ──
+  results.push({
+    id: "S004", cat: "Structure",
+    desc: "README.md exists",
+    status: has("README.md") ? "PASS" : "FAIL",
+    detail: has("README.md") ? "" : "Missing README.md"
+  });
+
+  // ── S005: subject directories ──
+  results.push({
+    id: "S005", cat: "Structure",
+    desc: "Subject directories (sub-*) exist",
+    status: subjects.length > 0 ? "PASS" : "FAIL",
+    detail: subjects.length > 0 ? `${subjects.length} subject(s): ${subjects.slice(0, 5).join(", ")}${subjects.length > 5 ? "..." : ""}` : "No sub-* directories"
+  });
+
+  // ── S006: session directories ──
+  if (subjects.length === 0) {
+    results.push({ id: "S006", cat: "Structure", desc: "Session directories (ses-*) exist", status: "SKIP", detail: "No subjects" });
+  } else {
+    const noSes = subjects.filter(s => subSessions[s].length === 0);
+    results.push({
+      id: "S006", cat: "Structure",
+      desc: "Session directories (ses-*) exist",
+      status: noSes.length === 0 ? "PASS" : "FAIL",
+      detail: noSes.length === 0 ? "All subjects have sessions" : `${noSes.length} missing: ${noSes.slice(0, 3).join(", ")}`
+    });
+  }
+
+  // ── I001: imaging NIfTI ──
+  if (subjects.length === 0) {
+    results.push({ id: "I001", cat: "Imaging", desc: "Imaging NIfTI files present", status: "SKIP", detail: "No subjects" });
+  } else {
+    const noImg = subjects.filter(sub => {
+      const prefix = root + sub + "/";
+      return !paths.some(p => p.startsWith(prefix) && (p.endsWith("_img.nii.gz") || p.endsWith("_img.nii")));
+    });
+    results.push({
+      id: "I001", cat: "Imaging",
+      desc: "Imaging NIfTI files present",
+      status: noImg.length === 0 ? "PASS" : "FAIL",
+      detail: noImg.length === 0 ? `All ${subjects.length} subjects have imaging` : `${noImg.length} missing: ${noImg.slice(0, 3).join(", ")}`
+    });
+  }
+
+  // ── I002: imaging sidecar ──
+  if (subjects.length === 0) {
+    results.push({ id: "I002", cat: "Imaging", desc: "Imaging sidecar JSONs present", status: "SKIP", detail: "No subjects" });
+  } else {
+    const noJson = subjects.filter(sub => {
+      const prefix = root + sub + "/";
+      return !paths.some(p => p.startsWith(prefix) && p.endsWith("_img.json") && !p.includes("derivatives"));
+    });
+    results.push({
+      id: "I002", cat: "Imaging",
+      desc: "Imaging sidecar JSONs present",
+      status: noJson.length === 0 ? "PASS" : "FAIL",
+      detail: noJson.length === 0 ? `All ${subjects.length} subjects have sidecars` : `${noJson.length} missing`
+    });
+  }
+
+  // ── I003: imaging JSON valid ──
+  const imgJsonPaths = paths.filter(p => p.startsWith(root) && p.endsWith("_img.json") && !p.includes("derivatives"));
+  if (imgJsonPaths.length === 0) {
+    results.push({ id: "I003", cat: "Imaging", desc: "Imaging sidecar JSONs are valid", status: "SKIP", detail: "No imaging JSONs" });
+  } else {
+    let invalid = 0;
+    for (const jp of imgJsonPaths) {
+      const d = await readJson(zip, jp);
+      if (d === null) invalid++;
+    }
+    results.push({
+      id: "I003", cat: "Imaging",
+      desc: "Imaging sidecar JSONs are valid",
+      status: invalid === 0 ? "PASS" : "FAIL",
+      detail: invalid === 0 ? `${imgJsonPaths.length} valid` : `${invalid} invalid`
+    });
+  }
+
+  // ── I004: naming convention ──
+  if (subjects.length === 0) {
+    results.push({ id: "I004", cat: "Imaging", desc: "Files follow VIDS naming convention", status: "SKIP", detail: "No subjects" });
+  } else {
+    const bad = paths.filter(p => {
+      if (!p.startsWith(root)) return false;
+      if (!p.endsWith(".nii.gz") && !p.endsWith(".nii")) return false;
+      if (p.includes("derivatives")) return false;
+      const name = p.split("/").pop().replace(".nii.gz", "").replace(".nii", "");
+      return !name.startsWith("sub-");
+    });
+    results.push({
+      id: "I004", cat: "Imaging",
+      desc: "Files follow VIDS naming convention",
+      status: bad.length === 0 ? "PASS" : "WARN",
+      detail: bad.length === 0 ? "All files conform" : `${bad.length} non-conforming`
+    });
+  }
+
+  // ── A001: annotations directory ──
+  const hasAnnDir = hasD("derivatives/annotations/");
+  results.push({
+    id: "A001", cat: "Annotation",
+    desc: "derivatives/annotations/ exists",
+    status: hasAnnDir ? "PASS" : "FAIL",
+    detail: hasAnnDir ? "" : "Directory missing"
+  });
+
+  // ── A002: segmentation files ──
+  if (!hasAnnDir) {
+    results.push({ id: "A002", cat: "Annotation", desc: "Segmentation files present", status: "SKIP", detail: "No annotations directory" });
+  } else {
+    const segs = paths.filter(p => p.startsWith(rel(root, "derivatives/annotations/")) && (p.endsWith("_seg.nii.gz") || p.endsWith("_seg.nii")));
+    results.push({
+      id: "A002", cat: "Annotation",
+      desc: "Segmentation files present",
+      status: segs.length > 0 ? "PASS" : "FAIL",
+      detail: segs.length > 0 ? `${segs.length} segmentation file(s)` : "No *_seg.nii.gz found"
+    });
+  }
+
+  // ── A003: annotation sidecars ──
+  const segJsonPaths = paths.filter(p => p.startsWith(rel(root, "derivatives/annotations/")) && p.endsWith("_seg.json"));
+  if (!hasAnnDir) {
+    results.push({ id: "A003", cat: "Annotation", desc: "Annotation sidecar JSONs present", status: "SKIP", detail: "No annotations directory" });
+  } else {
+    results.push({
+      id: "A003", cat: "Annotation",
+      desc: "Annotation sidecar JSONs present",
+      status: segJsonPaths.length > 0 ? "PASS" : "FAIL",
+      detail: segJsonPaths.length > 0 ? `${segJsonPaths.length} sidecar(s)` : "No *_seg.json found"
+    });
+  }
+
+  // ── A004: annotation JSON valid + VIDSVersion ──
+  if (segJsonPaths.length === 0) {
+    results.push({ id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion", status: "SKIP", detail: "No annotation JSONs" });
+  } else {
+    let invalid = 0, missingVersion = 0;
+    for (const jp of segJsonPaths) {
+      const d = await readJson(zip, jp);
+      if (d === null) { invalid++; continue; }
+      if (!d.VIDSVersion) missingVersion++;
+    }
+    if (invalid > 0) {
+      results.push({ id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion", status: "FAIL", detail: `${invalid} invalid JSON(s)` });
+    } else if (missingVersion > 0) {
+      results.push({ id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion", status: "FAIL", detail: `${missingVersion} missing VIDSVersion` });
+    } else {
+      results.push({ id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion", status: "PASS", detail: `${segJsonPaths.length} valid` });
+    }
+  }
+
+  // ── A005: provenance complete ──
+  if (segJsonPaths.length === 0) {
+    results.push({ id: "A005", cat: "Annotation", desc: "Provenance fields populated", status: "SKIP", detail: "No annotation JSONs" });
+  } else {
+    let incomplete = 0;
+    for (const jp of segJsonPaths) {
+      const d = await readJson(zip, jp);
+      if (!d) continue;
+      const prov = d.Provenance;
+      if (!prov || typeof prov !== "object") { incomplete++; continue; }
+      const ann = prov.Annotator || {};
+      const proc = prov.AnnotationProcess || {};
+      if (!ann.ID && !ann.Name) { incomplete++; continue; }
+      if (!proc.Date && !proc.Tool) { incomplete++; continue; }
+    }
+    results.push({
+      id: "A005", cat: "Annotation",
+      desc: "Provenance fields populated",
+      status: incomplete === 0 ? "PASS" : "FAIL",
+      detail: incomplete === 0 ? "All annotations have provenance" : `${incomplete} incomplete`
+    });
+  }
+
+  // ── Q001: quality directory ──
+  results.push({
+    id: "Q001", cat: "Quality",
+    desc: "quality/ directory exists",
+    status: hasD("quality/") ? "PASS" : "FAIL",
+    detail: hasD("quality/") ? "" : "Directory missing"
+  });
+
+  // ── Q002: quality_summary.json ──
+  results.push({
+    id: "Q002", cat: "Quality",
+    desc: "quality_summary.json present",
+    status: has("quality/quality_summary.json") ? "PASS" : "FAIL",
+    detail: ""
+  });
+
+  // ── Q003: annotation_agreement.json ──
+  results.push({
+    id: "Q003", cat: "Quality",
+    desc: "annotation_agreement.json present",
+    status: has("quality/annotation_agreement.json") ? "PASS" : "FAIL",
+    detail: ""
+  });
+
+  // ── M001: ml directory ──
+  results.push({
+    id: "M001", cat: "ML",
+    desc: "ml/ directory exists",
+    status: hasD("ml/") ? "PASS" : "FAIL",
+    detail: ""
+  });
+
+  // ── M002: splits.json ──
+  results.push({
+    id: "M002", cat: "ML",
+    desc: "ml/splits.json present",
+    status: has("ml/splits.json") ? "PASS" : "FAIL",
+    detail: ""
+  });
+
+  // ── D001: CHANGES.md ──
+  results.push({
+    id: "D001", cat: "Metadata",
+    desc: "CHANGES.md exists",
+    status: has("CHANGES.md") ? "PASS" : "WARN",
+    detail: has("CHANGES.md") ? "" : "Recommended"
+  });
+
+  const passed = results.filter(r => r.status === "PASS").length;
+  const failed = results.filter(r => r.status === "FAIL").length;
+  const warned = results.filter(r => r.status === "WARN").length;
+  const skipped = results.filter(r => r.status === "SKIP").length;
+  const compliant = failed === 0;
+
+  return {
+    root: root || "(top level)",
+    profile,
+    subjects: subjects.length,
+    totalFiles: paths.filter(p => !p.endsWith("/")).length,
+    passed, failed, warned, skipped,
+    total: results.length,
+    compliant,
+    results,
+    datasetName: dd ? dd.Name : root.replace(/\/$/, "") || "Unknown",
+  };
+}
+
+// ── Render Results ─────────────────────────────────────────
+function renderResults(report) {
+  const pct = (report.passed / report.total) * 100;
+  const barColor = report.compliant ? "var(--green)" : pct > 60 ? "var(--orange)" : "var(--red)";
+
+  const icons = { PASS: "✅", FAIL: "❌", WARN: "⚠️", SKIP: "⏭️" };
+  const cls = { PASS: "rs-pass", FAIL: "rs-fail", WARN: "rs-warn", SKIP: "rs-skip" };
+
+  let html = `
+    <div class="results-header">
+      <span class="dataset-name">${report.datasetName}</span>
+      <span class="status-badge ${report.compliant ? 'status-pass' : 'status-fail'}">
+        ${report.compliant ? '✅ COMPLIANT' : '❌ NON-COMPLIANT'}
+      </span>
+    </div>
+
+    <div class="score-bar">
+      <div class="score-num ${report.compliant ? 'score-pass' : 'score-fail'}">${report.passed}/${report.total}</div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:${pct}%;background:${barColor}"></div>
+      </div>
+      <div class="score-detail">${report.passed} passed · ${report.failed} failed · ${report.warned} warn · ${report.skipped} skipped</div>
+    </div>
+
+    <div class="profile-info">
+      <div>Profile: <span>${report.profile.toUpperCase()}</span></div>
+      <div>Subjects: <span>${report.subjects}</span></div>
+      <div>Files: <span>${report.totalFiles}</span></div>
+    </div>
+  `;
+
+  let lastCat = "";
+  report.results.forEach(r => {
+    if (r.cat !== lastCat) {
+      html += `<div class="rule-category-header">${r.cat}</div>`;
+      lastCat = r.cat;
+    }
+    html += `<div class="rule-row">
+      <span class="rule-icon">${icons[r.status]}</span>
+      <span class="rule-id">${r.id}</span>
+      <div class="rule-body">
+        <div class="rule-desc">${r.desc}</div>
+        ${r.detail ? `<div class="rule-detail">${r.detail}</div>` : ""}
+      </div>
+      <span class="rule-status ${cls[r.status]}">${r.status}</span>
+    </div>`;
+  });
+
+  html += `
+    <div class="actions">
+      <button class="btn btn-secondary" onclick="downloadReport()">Download JSON Report</button>
+      <button class="btn btn-primary" onclick="resetValidator()">Validate Another</button>
+    </div>
+  `;
+
+  resultsDiv.innerHTML = html;
+  resultsDiv.classList.add("visible");
+  resultsDiv.scrollIntoView({ behavior: "smooth" });
+
+  // Store for download
+  window._lastReport = report;
+}
+
+function downloadReport() {
+  const r = window._lastReport;
+  if (!r) return;
+
+  const report = {
+    VIDSVersion: "1.0",
+    ValidatorVersion: "1.1-web",
+    ValidatorType: "Browser (JavaScript)",
+    DatasetName: r.datasetName,
+    Profile: r.profile,
+    ValidationDate: new Date().toISOString(),
+    Summary: {
+      TotalRules: r.total,
+      Passed: r.passed,
+      Failed: r.failed,
+      Warnings: r.warned,
+      Skipped: r.skipped,
+      Status: r.compliant ? "PASS" : "FAIL"
+    },
+    Results: r.results.map(x => ({
+      rule: x.id,
+      status: x.status,
+      message: x.desc + (x.detail ? " — " + x.detail : "")
+    }))
+  };
+
+  const blob = new Blob([JSON.stringify(report, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "vids_validation_report.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetValidator() {
+  resultsDiv.classList.remove("visible");
+  resultsDiv.innerHTML = "";
+  fileInput.value = "";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIDS Interactive Validator Demo</title>
+<style>
+  :root {
+    --navy: #0F2B46;
+    --teal: #0D7377;
+    --accent: #14919B;
+    --green: #27AE60;
+    --red: #E74C3C;
+    --orange: #F39C12;
+    --gray: #6B7B8D;
+    --ltgray: #D1D9E0;
+    --offwhite: #F7F9FC;
+    --white: #FFFFFF;
+    --bg: #F0F4F8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+
+  .header p {
+    color: var(--gray);
+    font-size: 0.95rem;
+  }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .tree-panel {
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+
+  .tree-header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .tree-body { padding: 0.5rem 0; }
+
+  .tree-item {
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+    font-size: 0.82rem;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  }
+
+  .tree-item:hover { background: var(--offwhite); }
+
+  .tree-item.disabled {
+    opacity: 0.35;
+    text-decoration: line-through;
+  }
+
+  .tree-item .toggle {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--ltgray);
+    border-radius: 3px;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .tree-item:not(.disabled) .toggle {
+    border-color: var(--green);
+    background: #E8F8EF;
+  }
+
+  .tree-item:not(.disabled) .toggle::after {
+    content: '✓';
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .tree-item .label { flex: 1; }
+
+  .tree-item .tag {
+    font-size: 0.65rem;
+    padding: 0.05rem 0.35rem;
+    border-radius: 3px;
+    margin-left: 0.3rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .tag-warn { background: #FFF3CD; color: var(--orange); }
+
+  .tree-section {
+    padding: 0.4rem 0.8rem 0.15rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.3rem;
+  }
+
+  .tree-instructions {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.75rem;
+    color: var(--gray);
+    border-top: 1px solid var(--offwhite);
+    line-height: 1.4;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .validator-panel {
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+
+  .validator-header {
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--offwhite);
+  }
+
+  .validator-header .title {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--navy);
+  }
+
+  .status-badge {
+    padding: 0.25rem 0.8rem;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+  }
+
+  .status-pass { background: #E8F8EF; color: var(--green); }
+  .status-fail { background: #FDECEC; color: var(--red); }
+
+  .score-bar {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    gap: 0.8rem;
+    border-bottom: 1px solid var(--offwhite);
+  }
+
+  .score-bar .score-num {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .score-pass { color: var(--green); }
+  .score-fail { color: var(--red); }
+
+  .score-bar .score-detail {
+    font-size: 0.78rem;
+    color: var(--gray);
+    line-height: 1.4;
+  }
+
+  .progress-track {
+    flex: 1;
+    height: 8px;
+    background: var(--offwhite);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s, background 0.3s;
+  }
+
+  .rules-list { padding: 0.3rem 0; }
+
+  .rule-category-header {
+    padding: 0.35rem 1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--offwhite);
+    margin-top: 0.15rem;
+  }
+
+  .rule-row {
+    display: flex;
+    align-items: center;
+    padding: 0.35rem 1rem;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #F5F7FA;
+    transition: background 0.15s;
+  }
+
+  .rule-row:hover { background: var(--offwhite); }
+
+  .rule-icon {
+    width: 20px;
+    text-align: center;
+    margin-right: 0.5rem;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .rule-id {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-weight: 600;
+    width: 42px;
+    flex-shrink: 0;
+    font-size: 0.78rem;
+  }
+
+  .rule-desc {
+    flex: 1;
+    color: var(--navy);
+    font-size: 0.78rem;
+  }
+
+  .rule-status {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    min-width: 38px;
+    text-align: center;
+  }
+
+  .rs-pass { background: #E8F8EF; color: var(--green); }
+  .rs-fail { background: #FDECEC; color: var(--red); }
+  .rs-warn { background: #FFF3CD; color: var(--orange); }
+  .rs-skip { background: var(--offwhite); color: var(--ltgray); }
+
+  .reset-btn {
+    display: block;
+    margin: 0.8rem auto;
+    padding: 0.4rem 1.2rem;
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .reset-btn:hover { background: var(--accent); }
+
+  @media (max-width: 768px) {
+    .main-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>VIDS Interactive Validator</h1>
+    <p>Toggle files on/off to see how the 21 validation rules respond in real-time</p>
+  </div>
+
+  <div class="main-grid">
+    <div class="tree-panel" id="treePanel"></div>
+    <div class="validator-panel" id="validatorPanel"></div>
+  </div>
+</div>
+
+<script>
+const FILES = [
+  { id: "vids",         path: ".vids",                        section: "root",       on: true },
+  { id: "desc",         path: "dataset_description.json",     section: "root",       on: true },
+  { id: "participants", path: "participants.json",            section: "root",       on: true },
+  { id: "readme",       path: "README.md",                   section: "root",       on: true },
+  { id: "changes",      path: "CHANGES.md",                  section: "root",       on: true, warn: true },
+  { id: "sub_dir",      path: "sub-001/",                    section: "subject",    on: true },
+  { id: "ses_dir",      path: "  ses-baseline/ct/",          section: "subject",    on: true },
+  { id: "img_nii",      path: "    *_img.nii.gz",            section: "imaging",    on: true },
+  { id: "img_json",     path: "    *_img.json",              section: "imaging",    on: true },
+  { id: "ann_dir",      path: "derivatives/annotations/",    section: "annotation", on: true },
+  { id: "seg_nii",      path: "  sub-001/…/*_seg.nii.gz",   section: "annotation", on: true },
+  { id: "seg_json",     path: "  sub-001/…/*_seg.json",      section: "annotation", on: true },
+  { id: "qual_dir",     path: "quality/",                    section: "quality",    on: true },
+  { id: "qual_summary", path: "  quality_summary.json",      section: "quality",    on: true },
+  { id: "qual_agree",   path: "  annotation_agreement.json", section: "quality",    on: true },
+  { id: "ml_dir",       path: "ml/",                        section: "ml",         on: true },
+  { id: "ml_splits",    path: "  splits.json",              section: "ml",         on: true },
+];
+
+function on(id) { return FILES.find(f => f.id === id).on; }
+
+function validate() {
+  return [
+    { id: "S001", cat: "Structure",  desc: ".vids marker file exists",                     status: on("vids") ? "PASS" : "FAIL" },
+    { id: "S002", cat: "Structure",  desc: "dataset_description.json exists and valid",     status: on("desc") ? "PASS" : "FAIL" },
+    { id: "S003", cat: "Structure",  desc: "participants.json or .tsv exists",              status: on("participants") ? "PASS" : "FAIL" },
+    { id: "S004", cat: "Structure",  desc: "README.md exists",                              status: on("readme") ? "PASS" : "FAIL" },
+    { id: "S005", cat: "Structure",  desc: "Subject directories (sub-*) exist",             status: on("sub_dir") ? "PASS" : "FAIL" },
+    { id: "S006", cat: "Structure",  desc: "Session directories (ses-*) exist",             status: !on("sub_dir") ? "SKIP" : on("ses_dir") ? "PASS" : "FAIL" },
+    { id: "I001", cat: "Imaging",    desc: "Imaging NIfTI files present",                   status: !on("sub_dir") ? "SKIP" : on("img_nii") ? "PASS" : "FAIL" },
+    { id: "I002", cat: "Imaging",    desc: "Imaging sidecar JSONs present",                 status: !on("sub_dir") ? "SKIP" : on("img_json") ? "PASS" : "FAIL" },
+    { id: "I003", cat: "Imaging",    desc: "Imaging sidecar JSONs are valid",               status: !on("img_json") ? "SKIP" : "PASS" },
+    { id: "I004", cat: "Imaging",    desc: "Files follow VIDS naming convention",           status: !on("sub_dir") ? "SKIP" : on("img_nii") ? "PASS" : "WARN" },
+    { id: "A001", cat: "Annotation", desc: "derivatives/annotations/ exists",               status: on("ann_dir") ? "PASS" : "FAIL" },
+    { id: "A002", cat: "Annotation", desc: "Segmentation files present",                    status: !on("ann_dir") ? "SKIP" : on("seg_nii") ? "PASS" : "FAIL" },
+    { id: "A003", cat: "Annotation", desc: "Annotation sidecar JSONs present",              status: !on("ann_dir") ? "SKIP" : on("seg_json") ? "PASS" : "FAIL" },
+    { id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion",          status: !on("seg_json") ? "SKIP" : "PASS" },
+    { id: "A005", cat: "Annotation", desc: "Provenance fields populated",                   status: !on("seg_json") ? "SKIP" : "PASS" },
+    { id: "Q001", cat: "Quality",    desc: "quality/ directory exists",                      status: on("qual_dir") ? "PASS" : "FAIL" },
+    { id: "Q002", cat: "Quality",    desc: "quality_summary.json present",                   status: on("qual_summary") ? "PASS" : "FAIL" },
+    { id: "Q003", cat: "Quality",    desc: "annotation_agreement.json present",              status: on("qual_agree") ? "PASS" : "FAIL" },
+    { id: "M001", cat: "ML",         desc: "ml/ directory exists",                           status: on("ml_dir") ? "PASS" : "FAIL" },
+    { id: "M002", cat: "ML",         desc: "ml/splits.json present",                         status: on("ml_splits") ? "PASS" : "FAIL" },
+    { id: "D001", cat: "Metadata",   desc: "CHANGES.md exists",                              status: on("changes") ? "PASS" : "WARN" },
+  ];
+}
+
+const SECTION_LABELS = {
+  root: "Root Files",
+  subject: "Subject / Session",
+  imaging: "Imaging Files",
+  annotation: "Annotation Files",
+  quality: "Quality Documentation",
+  ml: "ML Readiness"
+};
+
+function render() {
+  // ── Tree ──
+  let tree = `<div class="tree-header">📁 lung-nodule-ct-100/</div><div class="tree-body">`;
+  let lastSection = "";
+
+  FILES.forEach(f => {
+    if (f.section !== lastSection) {
+      tree += `<div class="tree-section">${SECTION_LABELS[f.section]}</div>`;
+      lastSection = f.section;
+    }
+    const cls = f.on ? "tree-item" : "tree-item disabled";
+    const tag = f.warn ? `<span class="tag tag-warn">WARN</span>` : "";
+    tree += `<div class="${cls}" onclick="toggle('${f.id}')">
+      <span class="toggle"></span>
+      <span class="label">${f.path}</span>${tag}
+    </div>`;
+  });
+
+  tree += `</div><div class="tree-instructions">Click any file to toggle it on/off and watch the 21 validation rules respond in real-time.</div>`;
+  document.getElementById("treePanel").innerHTML = tree;
+
+  // ── Validator ──
+  const rules = validate();
+  const passed = rules.filter(r => r.status === "PASS").length;
+  const failed = rules.filter(r => r.status === "FAIL").length;
+  const warned = rules.filter(r => r.status === "WARN").length;
+  const skipped = rules.filter(r => r.status === "SKIP").length;
+  const total = rules.length;
+  const compliant = failed === 0;
+  const pct = total > 0 ? ((passed / total) * 100) : 100;
+  const barColor = compliant ? "var(--green)" : pct > 60 ? "var(--orange)" : "var(--red)";
+
+  const icons = { PASS: "✅", FAIL: "❌", WARN: "⚠️", SKIP: "⏭" };
+  const cls = { PASS: "rs-pass", FAIL: "rs-fail", WARN: "rs-warn", SKIP: "rs-skip" };
+
+  let v = `
+    <div class="validator-header">
+      <span class="title">vids-validate lung-nodule-ct-100/</span>
+      <span class="status-badge ${compliant ? 'status-pass' : 'status-fail'}">${compliant ? '✅ PASS' : '❌ FAIL'}</span>
+    </div>
+    <div class="score-bar">
+      <div class="score-num ${compliant ? 'score-pass' : 'score-fail'}">${passed}/${total}</div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:${pct}%;background:${barColor}"></div>
+      </div>
+      <div class="score-detail">${passed} passed · ${failed} failed · ${warned} warn · ${skipped} skipped</div>
+    </div>
+    <div class="rules-list">`;
+
+  let lastCat = "";
+  rules.forEach(r => {
+    if (r.cat !== lastCat) {
+      v += `<div class="rule-category-header">${r.cat}</div>`;
+      lastCat = r.cat;
+    }
+    v += `<div class="rule-row">
+      <span class="rule-icon">${icons[r.status]}</span>
+      <span class="rule-id">${r.id}</span>
+      <span class="rule-desc">${r.desc}</span>
+      <span class="rule-status ${cls[r.status]}">${r.status}</span>
+    </div>`;
+  });
+
+  v += `</div><button class="reset-btn" onclick="resetAll()">Reset All Files</button>`;
+  document.getElementById("validatorPanel").innerHTML = v;
+}
+
+function toggle(id) {
+  const f = FILES.find(f => f.id === id);
+  f.on = !f.on;
+  render();
+}
+
+function resetAll() {
+  FILES.forEach(f => f.on = true);
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

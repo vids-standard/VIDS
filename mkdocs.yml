@@ -103,5 +103,7 @@ nav:
   - Validator:
     - Installation: validator/index.md
     - Quick Start: validator/quickstart.md
+    - Online Validator: validator/online-validator.md
+    - Interactive Demo: validator/interactive-demo.md
     - CLI Reference: validator/cli-reference.md
   - GitHub: https://github.com/vids-standard/vids-standard
