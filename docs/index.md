@@ -211,15 +211,20 @@ VIDS is complementary to existing standards — it fills the gap none of them co
 
 ## Citation
 
+**[VIDS: A Verified Imaging Dataset Standard for Medical AI](https://arxiv.org/abs/2604.17525)**
+Dr. Joan S. Muthu, John Shalen — Princeton Medical Systems · arXiv:2604.17525
+
 <div class="vids-cite" markdown>
 
 ```bibtex
-@misc{vids2026,
-  title   = {VIDS: Verified Imaging Dataset Standard, Specification v1.0},
-  author  = {{Princeton Medical Systems}},
+@misc{muthu2026vids,
+  title   = {VIDS: A Verified Imaging Dataset Standard for Medical AI},
+  author  = {Muthu, Joan S. and Shalen, John},
   year    = {2026},
-  version = {1.0},
-  url     = {https://vidsstandard.org/spec/1.0}
+  eprint  = {2604.17525},
+  archivePrefix = {arXiv},
+  primaryClass  = {eess.IV},
+  url     = {https://arxiv.org/abs/2604.17525}
 }
 ```
 
