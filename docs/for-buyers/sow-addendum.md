@@ -2,7 +2,7 @@
 
 **Drop-in contract clauses that make a VIDS PASS the acceptance condition for medical imaging dataset deliveries.**
 
-Free to use, adapt, and redistribute under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). No fee, no registration, no permission required.
+Free to use, adapt, and redistribute under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/){target="_blank" rel="noopener"}. No fee, no registration, no permission required.
 
 [:material-download: Download as Word document](downloads/VIDS-SOW-Addendum-v1.0.docx){ .md-button .md-button--primary }
 
@@ -27,7 +27,7 @@ The clauses below give procurement and contract teams the language to make a VID
 1. Decide which Profile to require. POC for prototypes and internal research; Full for production, regulatory, or external-customer-facing use. See [Profile selection](#profile-selection) below.
 2. Copy Clauses 1–5 into your statement of work, master service agreement, or purchase order. Clauses 6 and 7 are situational.
 3. Fill in the bracketed placeholders — Profile choice, remediation timeline, and any optional terms.
-4. Send the SOW to your vendor with a link to [vidsstandard.org](https://vidsstandard.org) so they can prepare. Most vendors with mature data pipelines reach VIDS compliance within one to two weeks for POC and three to four weeks for Full.
+4. Send the SOW to your vendor with a link to [vidsstandard.org](https://vidsstandard.org){target="_blank" rel="noopener"} so they can prepare. Most vendors with mature data pipelines reach VIDS compliance within one to two weeks for POC and three to four weeks for Full.
 
 The clauses are short enough to fit on one page for legal review and were drafted to be readable by procurement and engineering leads without specialist counsel.
 
@@ -120,7 +120,7 @@ For purposes of these clauses, the following definitions apply.
 
 **VIDS** means the Verified Imaging Dataset Standard, an open specification published at https://vidsstandard.org and licensed under CC BY 4.0.
 
-**VIDS Specification** means the document at https://vidsstandard.org/spec/1.0 (or the version specified in Clause 6).
+**VIDS Specification** means the document at https://vidsstandard.org/specification/ (or the version specified in Clause 6).
 
 **Reference Validator** means the open-source software published as `vids-validator` on PyPI (https://pypi.org/project/vids-validator) and at https://github.com/vids-standard/vids-standard.
 
@@ -155,7 +155,7 @@ VIDS does not replace your criteria. It standardizes the structural and provenan
 
 **What if our vendor has never heard of VIDS?**
 
-Point them to [vidsstandard.org](https://vidsstandard.org). The validator is one command: `pip install vids-validator`. The specification is on a single page. Most vendors with mature data pipelines reach POC compliance in one to two weeks and Full compliance in three to four weeks. Including VIDS in the SOW gives them the runway to prepare.
+Point them to [vidsstandard.org](https://vidsstandard.org){target="_blank" rel="noopener"}. The validator is one command: `pip install vids-validator`. The specification is on a single page. Most vendors with mature data pipelines reach POC compliance in one to two weeks and Full compliance in three to four weeks. Including VIDS in the SOW gives them the runway to prepare.
 
 **Does this lock us into VIDS or any single supplier?**
 
@@ -181,19 +181,19 @@ The specification, validator, examples, and reference dataset are free. Princeto
 
 ## References
 
-- [VIDS Specification v1.0](https://vidsstandard.org/spec/) — full normative text
-- [Validation Rules](https://vidsstandard.org/spec/validation-rules/) — the 21 rules in detail
-- [Compliance Profiles](https://vidsstandard.org/spec/profiles/) — POC vs Full comparison
-- [Validator on PyPI](https://pypi.org/project/vids-validator) — `pip install vids-validator`
-- [arXiv preprint (2604.17525)](https://arxiv.org/abs/2604.17525) — academic paper
-- [LIDC-Hybrid-100 reference dataset](https://doi.org/10.5281/zenodo.19582717) — a working example of a 21/21 PASS dataset
-- [VIDS benchmarks](https://github.com/vids-standard/vids-benchmarks) — compliance scoring of major public datasets
+- [VIDS Specification v1.0](https://vidsstandard.org/specification/) — full normative text
+- [Validation Rules](https://vidsstandard.org/specification/validation-rules/) — the 21 rules in detail
+- [Compliance Profiles](https://vidsstandard.org/specification/profiles/) — POC vs Full comparison
+- [Validator on PyPI](https://pypi.org/project/vids-validator){target="_blank" rel="noopener"} — `pip install vids-validator`
+- [arXiv preprint (2604.17525)](https://arxiv.org/abs/2604.17525){target="_blank" rel="noopener"} — academic paper
+- [LIDC-Hybrid-100 reference dataset](https://doi.org/10.5281/zenodo.19582717){target="_blank" rel="noopener"} — a working example of a 21/21 PASS dataset
+- [VIDS benchmarks](https://github.com/vids-standard/vids-benchmarks){target="_blank" rel="noopener"} — compliance scoring of major public datasets
 
 ---
 
 ## License
 
-This document — *VIDS Reference Procurement Language* — is published under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). It may be used, adapted, and redistributed freely, including for commercial use, provided attribution is preserved.
+This document — *VIDS Reference Procurement Language* — is published under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/){target="_blank" rel="noopener"}. It may be used, adapted, and redistributed freely, including for commercial use, provided attribution is preserved.
 
 Suggested attribution: *"Adapted from the VIDS Reference Procurement Language v1.0, available at https://vidsstandard.org/for-buyers/sow-addendum/."*
 

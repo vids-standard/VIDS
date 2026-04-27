@@ -23,7 +23,7 @@ Datasets are scored against the 22 dimensions defined in the [VIDS Compliance Sc
 | [Quality Documentation](scoring-rubric.md#c-quality-documentation-5-dimensions) | 5 | QA process, results, inter-annotator agreement, validation evidence, class distribution |
 | [ML Readiness](scoring-rubric.md#d-ml-readiness-6-dimensions) | 6 | Label consistency, format compatibility, completeness, intended use, limitations, splits |
 
-Each dimension scores binary (1 if the pass criterion is met, 0 otherwise). The total score and per-dimension breakdown are reported alongside the [VIDS Reference Validator](https://github.com/vids-standard/vids-standard) output, which establishes the binary PASS/FAIL outcome at the chosen Profile.
+Each dimension scores binary (1 if the pass criterion is met, 0 otherwise). The total score and per-dimension breakdown are reported alongside the [VIDS Reference Validator](https://github.com/vids-standard/vids-standard){target="_blank" rel="noopener"} output, which establishes the binary PASS/FAIL outcome at the chosen Profile.
 
 ## What you receive
 

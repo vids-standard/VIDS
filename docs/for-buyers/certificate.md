@@ -1,6 +1,6 @@
 # Validation Certificate
 
-A VIDS Validation Certificate is the artifact issued for datasets that achieve a successful PASS on the [VIDS Reference Validator](https://github.com/vids-standard/vids-standard) at the specified Profile. It is the document a vendor attaches to a dataset delivery and a buyer forwards internally as proof of acceptance.
+A VIDS Validation Certificate is the artifact issued for datasets that achieve a successful PASS on the VIDS Reference Validator at the specified Profile. It is the document a vendor attaches to a dataset delivery and a buyer forwards internally as proof of acceptance.
 
 ## Issuance control
 
@@ -10,7 +10,7 @@ VIDS Validation Certificates are issued by approved evaluation operators followi
 
 ## Sample certificate
 
-Below is a worked example showing what a VIDS Validation Certificate looks like for the [LIDC-Hybrid-100 reference dataset](https://doi.org/10.5281/zenodo.19582717) — the publicly available 21/21 PASS dataset that demonstrates Full Profile compliance.
+Below is a worked example showing what a VIDS Validation Certificate looks like for the [LIDC-Hybrid-100 reference dataset](https://doi.org/10.5281/zenodo.19582717){target="_blank" rel="noopener"} — the publicly available 21/21 PASS dataset that demonstrates Full Profile compliance.
 
 ---
 
@@ -99,4 +99,4 @@ In each case, a new validation must be performed and a new certificate issued fo
 - [Compliance Evaluation](evaluation.md) — diagnostic assessment for datasets that have not yet achieved PASS
 - [Scoring Rubric](scoring-rubric.md) — the criteria that underlie validator rules
 - [Reference Procurement Language](sow-addendum.md) — contract clauses that require certificate delivery as a condition of acceptance
-- [VIDS Reference Validator](https://github.com/vids-standard/vids-standard) — the open-source tool that produces the underlying validation result
+- [VIDS Reference Validator](https://github.com/vids-standard/vids-standard){target="_blank" rel="noopener"} — the open-source tool that produces the underlying validation result

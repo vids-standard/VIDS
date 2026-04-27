@@ -4,7 +4,7 @@ The 22-dimension framework used to score medical imaging datasets in [VIDS Compl
 
 ## Purpose
 
-The rubric makes evaluations consistent across operators, defensible against scrutiny, and reproducible from the same dataset inputs. It complements the [VIDS Reference Validator](https://github.com/vids-standard/vids-standard) without replacing it.
+The rubric makes evaluations consistent across operators, defensible against scrutiny, and reproducible from the same dataset inputs. It complements the [VIDS Reference Validator](https://github.com/vids-standard/vids-standard){target="_blank" rel="noopener"} without replacing it.
 
 ## Relationship to the validator
 

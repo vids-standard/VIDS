@@ -17,7 +17,7 @@ A compliance benchmark of four widely used public medical imaging datasets, scor
 | LIDC-IDRI | 27% |
 | CheXpert | 20% |
 
-Source: [VIDS benchmarks repository](https://github.com/vids-standard/vids-benchmarks).
+Source: [VIDS benchmarks repository](https://github.com/vids-standard/vids-benchmarks){target="_blank" rel="noopener"}.
 
 If publicly maintained reference datasets score in this range, privately commissioned datasets — which receive far less external scrutiny — are unlikely to score higher.
 
