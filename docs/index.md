@@ -209,6 +209,22 @@ VIDS is complementary to existing standards — it fills the gap none of them co
 
 ---
 
+## For Buyers of Medical Imaging Datasets
+
+Acquiring annotated imaging datasets from external vendors? VIDS provides the procurement infrastructure to make dataset quality verifiable before acceptance.
+
+[**Reference Procurement Language**](for-buyers/sow-addendum.md) — drop-in contract clauses that make a VIDS PASS the acceptance condition for vendor deliveries. Free to use under CC BY 4.0.
+
+[**Compliance Evaluation**](for-buyers/evaluation.md) — diagnostic assessment of an existing dataset or vendor sample against the 22 VIDS dimensions. 48-hour turnaround.
+
+[**Scoring Rubric**](for-buyers/scoring-rubric.md) — the published criteria behind every VIDS score, dimension by dimension.
+
+[**Validation Certificate**](for-buyers/certificate.md) — the artifact a vendor delivers as proof of compliance.
+
+[See the full For Buyers section →](for-buyers/index.md){ .md-button }
+
+---
+
 ## Citation
 
 **[VIDS: A Verified Imaging Dataset Standard for Medical AI](https://arxiv.org/abs/2604.17525)**
@@ -240,5 +256,6 @@ Specification: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) · Tool
 [:material-github: GitHub](https://github.com/vids-standard/vids-standard){ .md-button }
 [:material-language-python: PyPI](https://pypi.org/project/vids-validator/){ .md-button }
 [:material-file-document: Full Specification](specification/index.md){ .md-button .md-button--primary }
+[:material-clipboard-text: For Buyers](for-buyers/index.md){ .md-button }
 
 </div>

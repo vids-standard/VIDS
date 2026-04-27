@@ -106,4 +106,10 @@ nav:
     - Online Validator: validator/online-validator.md
     - Interactive Demo: validator/interactive-demo.md
     - CLI Reference: validator/cli-reference.md
+  - For Buyers:
+    - Overview: for-buyers/index.md
+    - Reference Procurement Language: for-buyers/sow-addendum.md
+    - Compliance Evaluation: for-buyers/evaluation.md
+    - Scoring Rubric: for-buyers/scoring-rubric.md
+    - Validation Certificate: for-buyers/certificate.md
   - GitHub: https://github.com/vids-standard/vids-standard
