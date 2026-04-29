@@ -55,7 +55,7 @@ Below is a worked example showing what a VIDS Validation Certificate looks like 
 
 <p style="color: #4A4A4A; font-size: 0.9em; margin-bottom: 0;">Issued by</p>
 <p style="color: #1F3864; font-weight: bold; margin-top: 0.2em;">Princeton Medical Systems</p>
-<p style="color: #4A4A4A; font-size: 0.9em;">info@princetonmed.systems &nbsp;•&nbsp; https://vidsstandard.org</p>
+<p style="color: #4A4A4A; font-size: 0.9em;">info@princetonmedicalsystems.com &nbsp;•&nbsp; https://vidsstandard.org</p>
 
 </div>
 

@@ -47,7 +47,7 @@ The validator's raw JSON output is included as an attachment for independent re-
 
 VIDS Compliance Evaluations are performed by approved evaluation operators using the VIDS Reference Validator and the published scoring rubric. Princeton Medical Systems is the current sole operator.
 
-[Request an evaluation](mailto:info@princetonmed.systems?subject=VIDS%20compliance%20evaluation%20request){ .md-button .md-button--primary }
+[Request an evaluation](mailto:info@princetonmedicalsystems.com?subject=VIDS%20compliance%20evaluation%20request){ .md-button .md-button--primary }
 
 ## Related
 
