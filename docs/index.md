@@ -39,7 +39,7 @@ Every annotation carries a structured record of who created it, when, with what 
 
 ### :material-check-decagram: Automated Validation
 
-21 rules. One command. Binary PASS/FAIL. Compliance is determined by running the validator — not by reading a checklist.
+21 machine-enforceable validation rules. One command. Binary PASS/FAIL. Compliance is determined by running the validator — not by reading a checklist. The full VIDS standard defines 22 compliance dimensions; 21 of these are machine-enforceable through the open-source validator. The remaining dimension is assessed during a Compliance Evaluation.
 
 </div>
 
@@ -219,7 +219,7 @@ Acquiring annotated imaging datasets from external vendors? VIDS provides the pr
 
 [**Scoring Rubric**](for-buyers/scoring-rubric.md) — the published criteria behind every VIDS score, dimension by dimension.
 
-[**Validation Certificate**](for-buyers/certificate.md) — the artifact a vendor delivers as proof of compliance.
+[**Validation Attestation**](for-buyers/attestation.md) — the signed artifact a vendor delivers as proof of compliance.
 
 [See the full For Buyers section →](for-buyers/index.md){ .md-button }
 

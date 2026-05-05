@@ -52,5 +52,5 @@ VIDS Compliance Evaluations are performed by approved evaluation operators using
 ## Related
 
 - [Scoring Rubric](scoring-rubric.md) — the 22-dimension framework used in evaluations
-- [Validation Certificate](certificate.md) — issued for datasets that pass full validation
+- [Validation Attestation](attestation.md) — issued for datasets that pass full validation
 - [Reference Procurement Language](sow-addendum.md) — contract clauses that make VIDS PASS the acceptance condition

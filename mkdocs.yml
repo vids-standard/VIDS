@@ -60,6 +60,12 @@ extra:
 extra_css:
   - assets/extra.css
 
+plugins:
+  - search
+  - redirects:
+      redirect_maps:
+        'for-buyers/certificate.md': 'for-buyers/attestation.md'
+
 markdown_extensions:
   - abbr
   - admonition
@@ -111,5 +117,5 @@ nav:
     - Reference Procurement Language: for-buyers/sow-addendum.md
     - Compliance Evaluation: for-buyers/evaluation.md
     - Scoring Rubric: for-buyers/scoring-rubric.md
-    - Validation Certificate: for-buyers/certificate.md
+    - Validation Attestation: for-buyers/attestation.md
   - GitHub: https://github.com/vids-standard/vids-standard

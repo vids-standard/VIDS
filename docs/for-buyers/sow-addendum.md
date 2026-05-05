@@ -201,7 +201,7 @@ The VIDS Specification and Reference Validator are separately licensed (CC BY 4.
 
 ## Related
 
-- [Validation Certificate](certificate.md) — the artifact a vendor delivers as proof of compliance under these clauses
+- [Validation Attestation](attestation.md) — the artifact a vendor delivers as proof of compliance under these clauses
 - [Compliance Evaluation](evaluation.md) — diagnostic assessment for buyers who want to evaluate a vendor's sample delivery before contracting
 - [Scoring Rubric](scoring-rubric.md) — the 22-dimension framework that underlies validator results
 - [VIDS Specification](../specification/index.md) — the technical standard referenced by Clause 1

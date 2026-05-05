@@ -13,7 +13,7 @@ The VIDS Reference Validator checks 21 rules and produces a binary PASS/FAIL out
 | Validator (21 rules) | Rubric (22 dimensions) |
 |---|---|
 | Binary PASS/FAIL at the specified Profile | Granular scoring (X / 22) for diagnostic detail |
-| Used in: contract acceptance, [certificate](certificate.md) issuance | Used in: [evaluation reports](evaluation.md), public benchmarks |
+| Used in: contract acceptance, [attestation](attestation.md) issuance | Used in: [evaluation reports](evaluation.md), public benchmarks |
 | Automated, reproducible from any installation | Manual scoring by trained evaluator |
 | Output: `validation_report.json` | Output: VIDS Compliance Evaluation Report |
 
@@ -142,6 +142,6 @@ The current operator of VIDS Compliance Evaluations using this rubric is Princet
 ## Related
 
 - [Compliance Evaluation](evaluation.md) — how the rubric is applied to a specific dataset
-- [Validation Certificate](certificate.md) — issued for datasets that achieve 22 / 22 at the Full profile
+- [Validation Attestation](attestation.md) — issued for datasets that achieve 22 / 22 at the Full profile
 - [VIDS Specification](../specification/index.md) — the underlying technical standard
 - [Reference Procurement Language](sow-addendum.md) — contract clauses that make validator results binding

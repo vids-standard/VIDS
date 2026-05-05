@@ -1,6 +1,6 @@
 # For Buyers
 
-For organizations acquiring annotated medical imaging datasets — medical device manufacturers, AI/ML developers, pharmaceutical companies, and academic groups commissioning external data work.
+For organizations acquiring annotated medical imaging datasets — medical device manufacturers (medtech), AI/ML developers and startups, pharmaceutical companies, government health agencies, and academic groups commissioning external data work.
 
 ## The procurement gap
 
@@ -17,11 +17,9 @@ A compliance benchmark of four widely used public medical imaging datasets, scor
 | LIDC-IDRI | 27% |
 | CheXpert | 20% |
 
-Source: [VIDS benchmarks repository](https://github.com/vids-standard/vids-benchmarks){target="_blank" rel="noopener"} — scored against the 22 VIDS compliance dimensions, methodology and data published with the [arXiv preprint (2604.17525)](https://arxiv.org/abs/2604.17525){target="_blank" rel="noopener"}.
+Source: [VIDS benchmarks repository](https://github.com/vids-standard/vids-benchmarks){target="_blank" rel="noopener"}.
 
 If publicly maintained reference datasets score in this range, privately commissioned datasets — which receive far less external scrutiny — are unlikely to score higher.
-
-A working example of a fully compliant dataset is available for inspection: [LIDC-Hybrid-100 on Zenodo](https://doi.org/10.5281/zenodo.19582717){target="_blank" rel="noopener"} — a 100-subject reference dataset that achieves 21/21 PASS at the Full profile.
 
 ## Recommended action
 
@@ -39,15 +37,11 @@ The buyer-side adoption surface has four parts. Each is purpose-built and citabl
 
 **[Reference Procurement Language](sow-addendum.md)** — drop-in clauses that make VIDS PASS the acceptance condition for dataset deliveries.
 
-**[Compliance Evaluation](evaluation.md)** — diagnostic assessment of an existing dataset against the 22 VIDS scoring dimensions, with results returned within 48 hours. Used to surface gaps in already-acquired datasets or vendor sample deliveries before contracting.
+**[Compliance Evaluation](evaluation.md)** — diagnostic assessment of an existing dataset against the 22 VIDS dimensions. Used to surface gaps in already-acquired datasets or vendor sample deliveries before contracting.
 
 **[Scoring Rubric](scoring-rubric.md)** — the 22-dimension scoring framework used in compliance evaluations. Published openly so any score is traceable to documented criteria.
 
-**[Validation Certificate](certificate.md)** — issued for datasets that pass full validation. The artifact a vendor attaches to a delivery and a buyer forwards internally as proof of acceptance.
-
-### A note on 21 rules and 22 dimensions
-
-The [VIDS Reference Validator](https://github.com/vids-standard/vids-standard){target="_blank" rel="noopener"} checks 21 machine-verifiable rules and produces a binary PASS/FAIL outcome — used for acceptance decisions and certificate issuance. The Scoring Rubric extends those 21 rules with one additional documentation dimension (class distribution), giving 22 total scoring dimensions used in compliance evaluations and benchmarks. Validator results take precedence for contract decisions; rubric scores supply the diagnostic explanation. See the [Scoring Rubric](scoring-rubric.md) for the full mapping.
+**[Validation Attestation](attestation.md)** — the signed artifact issued for datasets that pass full validation. A vendor attaches it to a delivery and a buyer forwards it internally as proof of acceptance, supported by the underlying machine-readable Validation Report.
 
 ## What VIDS gives a buyer
 
@@ -59,12 +53,16 @@ The [VIDS Reference Validator](https://github.com/vids-standard/vids-standard){t
 
 **Lower cost of failure.** A vendor delivery that fails validation is identified at acceptance, not after integration. Remediation occurs while the contractual obligation is still active and the cost falls on the vendor.
 
-## Scope of the standard
-
-VIDS certifies dataset structure, annotation provenance, quality documentation, and ML readiness against the published specification. It does not warrant clinical correctness of annotations, fitness for a specific intended use, or regulatory clearance of any system trained on a compliant dataset. Domain-specific acceptance criteria — minimum subject count, modality coverage, label accuracy, clinical performance — layer on top of VIDS compliance, not within it.
+**Scope of validation.** VIDS validates dataset structure, annotation provenance, quality documentation, and ML readiness. It does not assess the clinical correctness of individual annotations, the diagnostic accuracy of any AI model trained on the dataset, or the dataset's suitability for a specific clinical use case. A successful VIDS validation establishes that a dataset is structurally sound, audit-ready, and provenance-traceable — not that the underlying data is clinically correct or fit for any particular purpose.
 
 ## About operators
 
 VIDS is an open standard. Compliance evaluations and certificate issuance are performed by approved evaluation operators. Princeton Medical Systems is the current sole operator and maintains the reference validator, evaluation rubric, and certificate format.
 
 For evaluation requests or procurement-specific inquiries: [info@princetonmedicalsystems.com](mailto:info@princetonmedicalsystems.com)
+
+## Reference materials
+
+**[LIDC-Hybrid-100 reference dataset](https://doi.org/10.5281/zenodo.19582717){target="_blank" rel="noopener"}** — 100 lung CT volumes with consensus segmentations from four radiologist reads, scored 21/21 on the VIDS Full profile. The publicly available worked example of what a VIDS-compliant dataset looks like. CC BY 4.0.
+
+**[VIDS arXiv preprint](https://arxiv.org/abs/2604.17525){target="_blank" rel="noopener"}** — "VIDS: A Verified Imaging Dataset Standard for Medical AI." Includes the 22-dimension scoring rubric, the benchmark of four widely used public datasets, and the design rationale behind the validation profiles.
