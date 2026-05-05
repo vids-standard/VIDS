@@ -57,7 +57,7 @@ The buyer-side adoption surface has four parts. Each is purpose-built and citabl
 
 ## About operators
 
-VIDS is an open standard. Compliance evaluations and certificate issuance are performed by approved evaluation operators. Princeton Medical Systems is the current sole operator and maintains the reference validator, evaluation rubric, and certificate format.
+VIDS is an open standard. Compliance evaluations and attestation issuance are performed by approved evaluation operators. Princeton Medical Systems is the current sole operator and maintains the reference validator, evaluation rubric, and attestation format.
 
 For evaluation requests or procurement-specific inquiries: [info@princetonmedicalsystems.com](mailto:info@princetonmedicalsystems.com)
 
