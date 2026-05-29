@@ -13,7 +13,7 @@ The VIDS Reference Validator checks 21 rules and produces a binary PASS/FAIL out
 | Validator (21 rules) | Rubric (22 dimensions) |
 |---|---|
 | Binary PASS/FAIL at the specified Profile | Granular scoring (X / 22) for diagnostic detail |
-| Used in: contract acceptance, [attestation](attestation.md) issuance | Used in: [evaluation reports](evaluation.md), public benchmarks |
+| Used in: contract acceptance, [attestation](attestation.md) issuance | Used in: [evaluation reports](evaluation.md) |
 | Automated, reproducible from any installation | Manual scoring by trained evaluator |
 | Output: `validation_report.json` | Output: VIDS Compliance Evaluation Report |
 
