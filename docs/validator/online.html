@@ -308,7 +308,7 @@
   <div class="results" id="results"></div>
 
   <div class="footer">
-    VIDS Validator v1.1 · <a href="https://vidsstandard.org">vidsstandard.org</a> · <a href="https://github.com/vids-standard/vids-standard">GitHub</a> · <a href="https://pypi.org/project/vids-validator/">PyPI</a>
+    VIDS Validator v1.2.1 · <a href="https://vidsstandard.org">vidsstandard.org</a> · <a href="https://github.com/vids-standard/vids-standard">GitHub</a> · <a href="https://pypi.org/project/vids-validator/">PyPI</a>
     <br>Princeton Medical Systems © 2026
   </div>
 </div>
@@ -608,38 +608,50 @@ async function runValidation(zip, paths, root) {
     detail: hasAnnDir ? "" : "Directory missing"
   });
 
-  // ── A002: segmentation files ──
+  // ── annotation file inventory (all five spec-defined suffixes) ──
+  const annPrefix = rel(root, "derivatives/annotations/");
+  const isAnn = p => p.startsWith(annPrefix);
+  const segBinaries = paths.filter(p => isAnn(p) && (p.endsWith("_seg.nii.gz") || p.endsWith("_seg.nii")));
+  const annJsonSuffixes = ["_seg.json", "_cls.json", "_bbox.json", "_lm.json", "_roi.json"];
+  const annSidecars = paths.filter(p => isAnn(p) && annJsonSuffixes.some(s => p.endsWith(s)));
+
+  // ── A002: at least one annotation file (any spec-defined suffix) ──
   if (!hasAnnDir) {
-    results.push({ id: "A002", cat: "Annotation", desc: "Segmentation files present", status: "SKIP", detail: "No annotations directory" });
+    results.push({ id: "A002", cat: "Annotation", desc: "Annotation files present", status: "SKIP", detail: "No annotations directory" });
   } else {
-    const segs = paths.filter(p => p.startsWith(rel(root, "derivatives/annotations/")) && (p.endsWith("_seg.nii.gz") || p.endsWith("_seg.nii")));
+    const annCount = segBinaries.length + annSidecars.length;
     results.push({
       id: "A002", cat: "Annotation",
-      desc: "Segmentation files present",
-      status: segs.length > 0 ? "PASS" : "FAIL",
-      detail: segs.length > 0 ? `${segs.length} segmentation file(s)` : "No *_seg.nii.gz found"
+      desc: "Annotation files present",
+      status: annCount > 0 ? "PASS" : "FAIL",
+      detail: annCount > 0 ? `${annCount} annotation file(s)` : "No annotation files (_seg/_cls/_bbox/_lm/_roi) found"
     });
   }
 
-  // ── A003: annotation sidecars ──
-  const segJsonPaths = paths.filter(p => p.startsWith(rel(root, "derivatives/annotations/")) && p.endsWith("_seg.json"));
+  // ── A003: binary annotations have paired sidecars; JSON-only annotations self-satisfy ──
   if (!hasAnnDir) {
-    results.push({ id: "A003", cat: "Annotation", desc: "Annotation sidecar JSONs present", status: "SKIP", detail: "No annotations directory" });
+    results.push({ id: "A003", cat: "Annotation", desc: "Binary annotations have paired sidecars", status: "SKIP", detail: "No annotations directory" });
+  } else if (segBinaries.length === 0 && annSidecars.length === 0) {
+    results.push({ id: "A003", cat: "Annotation", desc: "Binary annotations have paired sidecars", status: "SKIP", detail: "No annotation files to check" });
   } else {
+    const missing = segBinaries.filter(b => {
+      const stem = b.replace(/_seg\.nii\.gz$/, "").replace(/_seg\.nii$/, "");
+      return !paths.includes(stem + "_seg.json");
+    });
     results.push({
       id: "A003", cat: "Annotation",
-      desc: "Annotation sidecar JSONs present",
-      status: segJsonPaths.length > 0 ? "PASS" : "FAIL",
-      detail: segJsonPaths.length > 0 ? `${segJsonPaths.length} sidecar(s)` : "No *_seg.json found"
+      desc: "Binary annotations have paired sidecars",
+      status: missing.length === 0 ? "PASS" : "FAIL",
+      detail: missing.length === 0 ? "All annotation files have required sidecars" : `${missing.length} segmentation file(s) missing paired sidecar`
     });
   }
 
-  // ── A004: annotation JSON valid + VIDSVersion ──
-  if (segJsonPaths.length === 0) {
+  // ── A004: all annotation sidecars valid JSON + VIDSVersion (across all types) ──
+  if (annSidecars.length === 0) {
     results.push({ id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion", status: "SKIP", detail: "No annotation JSONs" });
   } else {
     let invalid = 0, missingVersion = 0;
-    for (const jp of segJsonPaths) {
+    for (const jp of annSidecars) {
       const d = await readJson(zip, jp);
       if (d === null) { invalid++; continue; }
       if (!d.VIDSVersion) missingVersion++;
@@ -649,16 +661,16 @@ async function runValidation(zip, paths, root) {
     } else if (missingVersion > 0) {
       results.push({ id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion", status: "FAIL", detail: `${missingVersion} missing VIDSVersion` });
     } else {
-      results.push({ id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion", status: "PASS", detail: `${segJsonPaths.length} valid` });
+      results.push({ id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion", status: "PASS", detail: `${annSidecars.length} valid` });
     }
   }
 
-  // ── A005: provenance complete ──
-  if (segJsonPaths.length === 0) {
+  // ── A005: provenance complete on all annotation sidecars (across all types) ──
+  if (annSidecars.length === 0) {
     results.push({ id: "A005", cat: "Annotation", desc: "Provenance fields populated", status: "SKIP", detail: "No annotation JSONs" });
   } else {
     let incomplete = 0;
-    for (const jp of segJsonPaths) {
+    for (const jp of annSidecars) {
       const d = await readJson(zip, jp);
       if (!d) continue;
       const prov = d.Provenance;
@@ -676,45 +688,50 @@ async function runValidation(zip, paths, root) {
     });
   }
 
-  // ── Q001: quality directory ──
-  results.push({
-    id: "Q001", cat: "Quality",
-    desc: "quality/ directory exists",
-    status: hasD("quality/") ? "PASS" : "FAIL",
-    detail: hasD("quality/") ? "" : "Directory missing"
-  });
+  // ── Q001–Q003: Quality (Full profile only; SKIP under POC) ──
+  if (profile !== "full") {
+    results.push({ id: "Q001", cat: "Quality", desc: "quality/ directory exists", status: "SKIP", detail: "POC profile — quality/ optional" });
+    results.push({ id: "Q002", cat: "Quality", desc: "quality_summary.json present", status: "SKIP", detail: "POC profile — quality/ optional" });
+    results.push({ id: "Q003", cat: "Quality", desc: "annotation_agreement.json present", status: "SKIP", detail: "POC profile — quality/ optional" });
+  } else {
+    results.push({
+      id: "Q001", cat: "Quality",
+      desc: "quality/ directory exists",
+      status: hasD("quality/") ? "PASS" : "FAIL",
+      detail: hasD("quality/") ? "" : "Directory missing"
+    });
+    results.push({
+      id: "Q002", cat: "Quality",
+      desc: "quality_summary.json present",
+      status: has("quality/quality_summary.json") ? "PASS" : "FAIL",
+      detail: ""
+    });
+    results.push({
+      id: "Q003", cat: "Quality",
+      desc: "annotation_agreement.json present",
+      status: has("quality/annotation_agreement.json") ? "PASS" : "FAIL",
+      detail: ""
+    });
+  }
 
-  // ── Q002: quality_summary.json ──
-  results.push({
-    id: "Q002", cat: "Quality",
-    desc: "quality_summary.json present",
-    status: has("quality/quality_summary.json") ? "PASS" : "FAIL",
-    detail: ""
-  });
-
-  // ── Q003: annotation_agreement.json ──
-  results.push({
-    id: "Q003", cat: "Quality",
-    desc: "annotation_agreement.json present",
-    status: has("quality/annotation_agreement.json") ? "PASS" : "FAIL",
-    detail: ""
-  });
-
-  // ── M001: ml directory ──
-  results.push({
-    id: "M001", cat: "ML",
-    desc: "ml/ directory exists",
-    status: hasD("ml/") ? "PASS" : "FAIL",
-    detail: ""
-  });
-
-  // ── M002: splits.json ──
-  results.push({
-    id: "M002", cat: "ML",
-    desc: "ml/splits.json present",
-    status: has("ml/splits.json") ? "PASS" : "FAIL",
-    detail: ""
-  });
+  // ── M001–M002: ML Readiness (Full profile only; SKIP under POC) ──
+  if (profile !== "full") {
+    results.push({ id: "M001", cat: "ML", desc: "ml/ directory exists", status: "SKIP", detail: "POC profile — ml/ optional" });
+    results.push({ id: "M002", cat: "ML", desc: "ml/splits.json present", status: "SKIP", detail: "POC profile — ml/ optional" });
+  } else {
+    results.push({
+      id: "M001", cat: "ML",
+      desc: "ml/ directory exists",
+      status: hasD("ml/") ? "PASS" : "FAIL",
+      detail: ""
+    });
+    results.push({
+      id: "M002", cat: "ML",
+      desc: "ml/splits.json present",
+      status: has("ml/splits.json") ? "PASS" : "FAIL",
+      detail: ""
+    });
+  }
 
   // ── D001: CHANGES.md ──
   results.push({
@@ -812,7 +829,7 @@ function downloadReport() {
 
   const report = {
     VIDSVersion: "1.0",
-    ValidatorVersion: "1.1-web",
+    ValidatorVersion: "1.2.1-web",
     ValidatorType: "Browser (JavaScript)",
     DatasetName: r.datasetName,
     Profile: r.profile,

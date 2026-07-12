@@ -23,10 +23,10 @@ A dataset is compliant if it has zero FAIL rules.
 ## Annotation rules (A\*)
 
 - A001: `derivatives/annotations/` exists.
-- A002: segmentation files exist (`*_seg.nii.gz` or `*_seg.nii`).
-- A003: segmentation sidecars exist (`*_seg.json`).
-- A004: segmentation sidecars are valid JSON and include `VIDSVersion`.
-- A005: provenance completeness: annotator identity and tool/date recorded (minimums).
+- A002: at least one annotation file exists across the five spec-defined suffixes (`*_seg.nii.gz`/`*_seg.nii`, `*_cls.json`, `*_bbox.json`, `*_lm.json`, `*_roi.json`).
+- A003: every `_seg` binary has its paired `*_seg.json`; JSON-only annotations (`_cls`/`_bbox`/`_lm`/`_roi`) are self-sidecared and satisfy this rule.
+- A004: all annotation sidecars, across all annotation types, are valid JSON and include `VIDSVersion`.
+- A005: provenance completeness on all annotation sidecars: annotator identity and tool/date recorded (minimums).
 
 ## Quality rules (Q\*) — Full only
 

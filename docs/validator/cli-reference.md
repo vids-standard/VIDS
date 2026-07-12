@@ -62,7 +62,7 @@ Outputs a JSON object with the following top-level fields:
 | Field | Type | Description |
 |-------|------|-------------|
 | `VIDSVersion` | string | VIDS specification version (`"1.0"`) |
-| `ValidatorVersion` | string | Validator version (`"1.1"`) |
+| `ValidatorVersion` | string | Validator version (`"1.2.1"`) |
 | `DatasetPath` | string | Absolute path to the validated dataset |
 | `Profile` | string | Profile used (`"poc"` or `"full"`) |
 | `ValidationDate` | string | ISO 8601 UTC timestamp |

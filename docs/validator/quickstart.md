@@ -76,7 +76,7 @@ vids-validate /path/to/my-dataset --json
 ```json
 {
   "VIDSVersion": "1.0",
-  "ValidatorVersion": "1.1",
+  "ValidatorVersion": "1.2.1",
   "DatasetPath": "/path/to/my-dataset",
   "Profile": "poc",
   "ValidationDate": "2026-04-01T10:30:00Z",
@@ -160,6 +160,6 @@ Common failures and fixes:
 |------|-------------|-----|
 | S001 | Missing `.vids` file | Create a `.vids` file with `profile: poc` and `vids_version: 1.0` |
 | S002 | Missing fields in `dataset_description.json` | Add all 6 required fields: `Name`, `VIDSVersion`, `DatasetVersion`, `License`, `Description`, `Authors` |
-| A005 | Incomplete provenance in annotation sidecars | Ensure every `_seg.json` has `Provenance.Annotator.ID` (or `.Name`) and `Provenance.AnnotationProcess.Date` (or `.Tool`) |
+| A005 | Incomplete provenance in annotation sidecars | Ensure every annotation sidecar (`_seg`/`_cls`/`_bbox`/`_lm`/`_roi` JSON) has `Provenance.Annotator.ID` (or `.Name`) and `Provenance.AnnotationProcess.Date` (or `.Tool`) |
 
 See [Validation Rules](../specification/validation-rules.md) for the complete rule reference.

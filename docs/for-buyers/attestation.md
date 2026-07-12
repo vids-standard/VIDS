@@ -29,7 +29,7 @@ Below is a worked example showing what a VIDS Validation Attestation looks like 
 | **Date of Validation** | 12 April 2026 |
 | **VIDS Profile** | Full |
 | **VIDS Version** | 1.0 |
-| **Validator** | VIDS Reference Validator v1.1 |
+| **Validator** | VIDS Reference Validator v1.2.1 |
 | **Validation Artifact** | `validation_report.json` (attached) |
 
 <p style="text-align: center; color: #4A4A4A; font-weight: bold; margin-top: 2em;">VALIDATION RESULT</p>
