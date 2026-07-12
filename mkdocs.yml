@@ -106,6 +106,7 @@ nav:
     - Directory Structure: specification/directory-structure.md
     - File Naming: specification/file-naming.md
     - Compliance Profiles: specification/profiles.md
+    - Changes & Errata: specification/changes.md
   - Validator:
     - Installation: validator/index.md
     - Quick Start: validator/quickstart.md

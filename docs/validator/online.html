@@ -734,12 +734,16 @@ async function runValidation(zip, paths, root) {
   }
 
   // ── D001: CHANGES.md ──
-  results.push({
-    id: "D001", cat: "Metadata",
-    desc: "CHANGES.md exists",
-    status: has("CHANGES.md") ? "PASS" : "WARN",
-    detail: has("CHANGES.md") ? "" : "Recommended"
-  });
+  if (profile !== "full") {
+    results.push({ id: "D001", cat: "Metadata", desc: "CHANGES.md exists", status: "SKIP", detail: "POC profile — CHANGES.md optional (recommended)" });
+  } else {
+    results.push({
+      id: "D001", cat: "Metadata",
+      desc: "CHANGES.md exists",
+      status: has("CHANGES.md") ? "PASS" : "WARN",
+      detail: has("CHANGES.md") ? "" : "Recommended"
+    });
+  }
 
   const passed = results.filter(r => r.status === "PASS").length;
   const failed = results.filter(r => r.status === "FAIL").length;
