@@ -1,0 +1,89 @@
+name: PR Preview
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Same install as deploy.yml, so a passing preview means a passing deploy.
+      - name: Install
+        run: pip install mkdocs-material mkdocs-redirects
+
+      # 1. Build exactly as production does. This is the gate: --strict fails
+      #    on a broken internal link, an unrecognised nav entry, or a config
+      #    error, so a red check here means the deploy would have been red.
+      - name: Build as production
+        run: mkdocs build --strict --site-dir site-production
+
+      # 2. Build a second copy with flat .html filenames. Directory URLs need
+      #    a web server to resolve; flat files open straight from disk, so a
+      #    reviewer can unzip and double-click index.html.
+      - name: Build browsable copy
+        run: mkdocs build --strict --no-directory-urls --site-dir site-preview
+
+      - name: Upload preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-preview-pr-${{ github.event.pull_request.number }}
+          path: site-preview
+          retention-days: 14
+
+      - name: Comment with preview instructions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '<!-- site-preview -->';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const body = [
+              marker,
+              '### Site preview',
+              '',
+              'The strict build passed, so this branch would deploy cleanly.',
+              '',
+              `**[Download the preview](${runUrl}#artifacts)** from the Artifacts section at the bottom of that page, then unzip and open \`index.html\`.`,
+              '',
+              'Links work offline, so you can click through the whole site as it would appear. Two things differ from production: URLs end in `.html` rather than a trailing slash, and the search box will not work without a web server.',
+              '',
+              'The artifact expires after 14 days.'
+            ].join('\n');
+
+            const {data: comments} = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
