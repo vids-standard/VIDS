@@ -32,8 +32,8 @@ Dataset: /path/to/my-dataset
   ✅ I003: 10 imaging JSONs valid
   ✅ I004: All files follow VIDS naming convention
   ✅ A001: derivatives/annotations/ exists
-  ✅ A002: 10 segmentation files found
-  ✅ A003: 10 annotation sidecar JSONs found
+  ✅ A002: Annotations found (10 seg)
+  ✅ A003: All annotation files have required sidecars
   ✅ A004: 10 annotation JSONs valid
   ✅ A005: All annotations have complete provenance
   ⏭  Q001: POC profile — quality/ optional
@@ -41,13 +41,13 @@ Dataset: /path/to/my-dataset
   ⏭  Q003: POC profile — annotation_agreement optional
   ⏭  M001: POC profile — ml/ optional
   ⏭  M002: POC profile — splits optional
-  ⚠️  D001: CHANGES.md missing (recommended)
+  ⏭  D001: POC profile — CHANGES.md optional (recommended)
 
 ------------------------------------------------------------
   Passed:   15
   Failed:   0
-  Warnings: 1
-  Skipped:  5
+  Warnings: 0
+  Skipped:  6
 ------------------------------------------------------------
 
 ✅ VALIDATION PASSED (15/21 rules)
@@ -84,13 +84,13 @@ vids-validate /path/to/my-dataset --json
     "TotalRules": 21,
     "Passed": 15,
     "Failed": 0,
-    "Warnings": 1,
-    "Skipped": 5,
+    "Warnings": 0,
+    "Skipped": 6,
     "Status": "PASS"
   },
   "Results": [ ... ],
   "Errors": [],
-  "Warnings": ["D001: CHANGES.md missing (recommended)"]
+  "Warnings": []
 }
 ```
 
