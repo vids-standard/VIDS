@@ -1,6 +1,9 @@
 # Documentation Scoring Rubric
 
-The 22-dimension framework used in [dataset documentation assessments](documentation-assessment.md). It is a diagnostic instrument, not a conformance test. Published openly so that any score in any assessment report is traceable to documented criteria.
+The framework used in [dataset documentation assessments](documentation-assessment.md). It is a diagnostic instrument, not a conformance test. Published openly so that any score in any assessment report is traceable to documented criteria.
+
+!!! note "This is not the published benchmark"
+    This rubric is a Princeton Medical Systems methodology used in commercial assessments. It is separate from the [published benchmark](../published-benchmark.md) described in Muthu and Shalen, arXiv:2604.17525, which uses a different set of dimensions and a different scoring scale. Scores from the two are not comparable.
 
 ## Purpose
 
@@ -8,7 +11,9 @@ Publishing the criteria makes an assessment inspectable: a reader can see which 
 
 ## Relationship to the validator
 
-**VIDS conformance is determined by the Reference Validator, and by nothing else.** The validator checks 21 rules at the selected profile and produces the PASS or FAIL result. A rubric score is not a conformance result and cannot substitute for one.
+**Assessment scores describe documentation coverage. The validator determines conformance. Where they appear to disagree, the validator governs.**
+
+The validator checks 21 rules at the selected profile and produces the PASS or FAIL result. A rubric score is not a conformance result and cannot substitute for one.
 
 The rubric is a diagnostic instrument. It scores 22 dimensions to describe how completely a dataset is documented, including some recommended items, such as class-distribution documentation, that the specification does not make a requirement. That breadth is useful for deciding what to fix; it is not a second definition of conformance.
 

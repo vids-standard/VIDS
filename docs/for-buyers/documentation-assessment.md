@@ -1,8 +1,10 @@
 # Dataset Documentation Assessment
 
-A dataset documentation assessment is a diagnostic review of a medical imaging dataset against the [22-dimension scoring rubric](scoring-rubric.md). It surfaces structural, provenance, quality, and ML-readiness gaps that would otherwise be discovered after integration begins.
+A dataset documentation assessment is a diagnostic review of a medical imaging dataset against the [scoring rubric](scoring-rubric.md), a Princeton Medical Systems methodology. It surfaces structural, provenance, quality, and ML-readiness gaps that would otherwise be discovered after integration begins.
 
-It is diagnostic, not determinative. VIDS conformance is decided by the [Reference Validator](validation-report.md), which anyone can run. An assessment explains what is missing and what it would take to close the gaps; it does not issue a conformance result.
+It is diagnostic, not determinative. An assessment explains what is missing and what it would take to close the gaps; it does not issue a conformance result.
+
+**Assessment scores describe documentation coverage. The validator determines conformance. Where they appear to disagree, the validator governs.**
 
 ## When to request an assessment
 
@@ -35,7 +37,7 @@ An assessment produces a structured report covering:
 - **Documentation Coverage Breakdown** — per-category scores with notes on each dimension cluster
 - **Operational Implications** — concrete impact on the dataset's usability for the intended use
 - **Remediation Path** — the steps required to close the identified documentation gaps, with effort tier (low / moderate / significant) and primary dependency. Any validator failures are listed separately, since those are the ones that determine conformance
-- **Comparative Reference** — how the dataset compares to public benchmark datasets
+- **Context** — how the identified gaps compare with what is commonly missing in public datasets, drawn from the [published benchmark](../published-benchmark.md). The two use different instruments, so this is orientation rather than a like-for-like score comparison
 
 The validator's raw JSON output is included as an attachment for independent re-validation.
 
@@ -55,6 +57,6 @@ What the service adds is time and interpretation, not authority.
 
 ## Related
 
-- [Scoring Rubric](scoring-rubric.md) — the 22-dimension framework used in assessments
+- [Scoring Rubric](scoring-rubric.md) — the criteria used in assessments
 - [Validation Report](validation-report.md) — the validator output for any validation run, PASS or FAIL
 - [Reference Procurement Language](sow-addendum.md) — contract clauses that make VIDS PASS the acceptance condition

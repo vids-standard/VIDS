@@ -8,18 +8,9 @@ Medical imaging dataset procurement currently relies on vendor claims and manual
 
 Without an objective acceptance criterion, dataset quality is typically assessed after integration begins — when remediation is most expensive and timelines are already committed.
 
-A compliance benchmark of four widely used public medical imaging datasets, scored against the VIDS specification, illustrates the scale of the gap:
+Our published benchmark found substantial documentation gaps across four widely used public medical imaging datasets, with provenance the weakest category throughout. The results, methodology and per-dimension scores are on the [published benchmark](../published-benchmark.md) page.
 
-| Dataset | VIDS Compliance |
-|---|---|
-| BraTS | 39% |
-| MSD | 30% |
-| LIDC-IDRI | 27% |
-| CheXpert | 20% |
-
-Source: [VIDS benchmarks repository](https://github.com/vids-standard/vids-benchmarks){target="_blank" rel="noopener"}.
-
-If publicly maintained reference datasets score in this range, privately commissioned datasets — which receive far less external scrutiny — are unlikely to score higher.
+If established public datasets show gaps of this scale, buyers should not assume that privately commissioned datasets are fully documented without checking.
 
 ## Recommended action
 
@@ -39,7 +30,7 @@ The buyer-side adoption surface has four parts. Each is purpose-built and citabl
 
 **[Dataset Documentation Assessment](documentation-assessment.md)** — a separate diagnostic review against a 22-dimension rubric, used to surface documentation gaps in already-acquired datasets or vendor samples before contracting. Diagnostic only; it does not determine VIDS conformance.
 
-**[Scoring Rubric](scoring-rubric.md)** — the 22-dimension framework used in documentation assessments. A Princeton Medical Systems methodology, published openly so any score is traceable to documented criteria.
+**[Scoring Rubric](scoring-rubric.md)** — the criteria used in documentation assessments. A Princeton Medical Systems methodology, separate from the published benchmark, opened so any score is traceable to documented criteria.
 
 **[Validation Report](validation-report.md)** — the machine-readable validator output. A vendor attaches it to a delivery; a buyer reproduces it independently before accepting. Reproducibility is what makes it evidence.
 
@@ -67,4 +58,4 @@ For assessment requests or procurement-specific inquiries: [info@princetonmedica
 
 **[LIDC-Hybrid-100 reference dataset](https://doi.org/10.5281/zenodo.19582717){target="_blank" rel="noopener"}** — 100 lung CT volumes with consensus segmentations from four radiologist reads, scored 21/21 on the VIDS Full profile. The publicly available worked example of what a VIDS-compliant dataset looks like. CC BY 4.0.
 
-**[VIDS arXiv preprint](https://arxiv.org/abs/2604.17525){target="_blank" rel="noopener"}** — "VIDS: A Verified Imaging Dataset Standard for Medical AI." Includes the 22-dimension scoring rubric, the benchmark of four widely used public datasets, and the design rationale behind the validation profiles.
+**[VIDS arXiv preprint](https://arxiv.org/abs/2604.17525){target="_blank" rel="noopener"}** — "VIDS: A Verified Imaging Dataset Standard for Medical AI." Includes the published 22-dimension benchmark methodology, the analysis of four widely used public datasets, and the design rationale behind the validation profiles.

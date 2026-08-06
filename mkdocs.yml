@@ -121,6 +121,7 @@ nav:
     - Dataset Documentation Assessment: for-buyers/documentation-assessment.md
     - Documentation Scoring Rubric: for-buyers/scoring-rubric.md
     - Validation Report: for-buyers/validation-report.md
+  - Published Benchmark: published-benchmark.md
   - Governance:
     - How VIDS is Governed: governance/index.md
     - What VIDS Checks: governance/what-vids-checks.md
