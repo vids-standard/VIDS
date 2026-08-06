@@ -1,89 +1,121 @@
-name: PR Preview
+name: PR site preview
 
 on:
   pull_request:
     branches:
       - main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 permissions:
   contents: read
   pull-requests: write
 
 concurrency:
-  group: preview-${{ github.event.pull_request.number }}
+  group: pr-site-preview-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
   preview:
+    name: Build and publish preview
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
+      - name: Check out pull request
+        uses: actions/checkout@v6
         with:
-          python-version: '3.12'
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
 
-      # Same install as deploy.yml, so a passing preview means a passing deploy.
-      - name: Install
-        run: pip install mkdocs-material mkdocs-redirects
-
-      # 1. Build exactly as production does. This is the gate: --strict fails
-      #    on a broken internal link, an unrecognised nav entry, or a config
-      #    error, so a red check here means the deploy would have been red.
-      - name: Build as production
-        run: mkdocs build --strict --site-dir site-production
-
-      # 2. Build a second copy with flat .html filenames. Directory URLs need
-      #    a web server to resolve; flat files open straight from disk, so a
-      #    reviewer can unzip and double-click index.html.
-      - name: Build browsable copy
-        run: mkdocs build --strict --no-directory-urls --site-dir site-preview
-
-      - name: Upload preview
-        uses: actions/upload-artifact@v4
+      - name: Set up Python
+        uses: actions/setup-python@v7
         with:
-          name: site-preview-pr-${{ github.event.pull_request.number }}
-          path: site-preview
-          retention-days: 14
+          python-version: "3.12"
+          cache: pip
 
-      - name: Comment with preview instructions
-        uses: actions/github-script@v7
+      - name: Install site dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install mkdocs-material mkdocs-redirects
+
+      - name: Build site strictly
+        run: mkdocs build --strict
+
+      - name: Prevent preview indexing
+        run: |
+          cat > site/_headers <<'EOF'
+          /*
+            X-Robots-Tag: noindex, nofollow, noarchive
+          EOF
+
+      - name: Deploy preview to Cloudflare Pages
+        id: cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >-
+            pages deploy site
+            --project-name=vids-preview
+            --branch=pr-${{ github.event.pull_request.number }}
+
+      - name: Add or update preview comment
+        uses: actions/github-script@v8
+        env:
+          PREVIEW_URL: ${{ steps.cloudflare.outputs['pages-deployment-alias-url'] }}
         with:
           script: |
-            const marker = '<!-- site-preview -->';
-            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const marker = '<!-- vids-cloudflare-preview -->';
+            const url = process.env.PREVIEW_URL;
+
+            if (!url) {
+              core.setFailed(
+                'Cloudflare did not return a preview alias URL. Check the Wrangler action output.'
+              );
+              return;
+            }
+
             const body = [
               marker,
-              '### Site preview',
+              '### Website preview',
               '',
-              'The strict build passed, so this branch would deploy cleanly.',
+              'The latest version of this pull request is available at:',
               '',
-              `**[Download the preview](${runUrl}#artifacts)** from the Artifacts section at the bottom of that page, then unzip and open \`index.html\`.`,
+              `**${url}**`,
               '',
-              'Links work offline, so you can click through the whole site as it would appear. Two things differ from production: URLs end in `.html` rather than a trailing slash, and the search box will not work without a web server.',
-              '',
-              'The artifact expires after 14 days.'
+              '_This preview is public but carries noindex headers. It updates whenever new commits are pushed to this PR._'
             ].join('\n');
 
-            const {data: comments} = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            });
-            const existing = comments.find(c => c.body.includes(marker));
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+
+            const comments = await github.paginate(
+              github.rest.issues.listComments,
+              { owner, repo, issue_number, per_page: 100 }
+            );
+
+            const existing = comments.find(
+              comment =>
+                comment.user?.type === 'Bot' &&
+                comment.body?.includes(marker)
+            );
 
             if (existing) {
               await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
+                owner,
+                repo,
                 comment_id: existing.id,
-                body,
+                body
               });
             } else {
               await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body,
+                owner,
+                repo,
+                issue_number,
+                body
               });
             }
