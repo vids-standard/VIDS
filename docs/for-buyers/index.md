@@ -33,33 +33,35 @@ CC BY 4.0. Free to use, adapt, and redistribute.
 
 ## How VIDS works for buyers
 
-The buyer-side adoption surface has four parts. Each is purpose-built and citable in contracts and audits.
+The buyer-side adoption surface has four parts. Each is purpose-built and citable in contracts and in regulatory review.
 
 **[Reference Procurement Language](sow-addendum.md)** — drop-in clauses that make VIDS PASS the acceptance condition for dataset deliveries.
 
-**[Compliance Evaluation](evaluation.md)** — diagnostic assessment of an existing dataset against the 22 VIDS dimensions. Used to surface gaps in already-acquired datasets or vendor sample deliveries before contracting.
+**[Dataset Documentation Assessment](documentation-assessment.md)** — a separate diagnostic review against a 22-dimension rubric, used to surface documentation gaps in already-acquired datasets or vendor samples before contracting. Diagnostic only; it does not determine VIDS conformance.
 
-**[Scoring Rubric](scoring-rubric.md)** — the 22-dimension scoring framework used in compliance evaluations. Published openly so any score is traceable to documented criteria.
+**[Scoring Rubric](scoring-rubric.md)** — the 22-dimension framework used in documentation assessments. A Princeton Medical Systems methodology, published openly so any score is traceable to documented criteria.
 
-**[Validation Attestation](attestation.md)** — the signed artifact issued for datasets that pass full validation. A vendor attaches it to a delivery and a buyer forwards it internally as proof of acceptance, supported by the underlying machine-readable Validation Report.
+**[Validation Report](validation-report.md)** — the machine-readable validator output. A vendor attaches it to a delivery; a buyer reproduces it independently before accepting. Reproducibility is what makes it evidence.
 
 ## What VIDS gives a buyer
 
 **An objective acceptance criterion.** The validator runs on the delivered dataset and produces a binary pass/fail result. No subjective interpretation, no checklist negotiation, no "trust us" deliveries.
 
-**A reference framework citable in contracts and audits.** EU AI Act, IMDRF GMLP, and the FDA AI/ML SaMD Action Plan all point toward machine-readable provenance. VIDS provides the structure that makes those requirements concrete.
+**A reference framework citable in contracts and in regulatory review.** EU AI Act, IMDRF GMLP, and the FDA AI/ML SaMD Action Plan all point toward machine-readable provenance. VIDS provides the structure that makes those requirements concrete.
 
 **Vendor independence.** The specification is open (CC BY 4.0). The validator is open-source (Apache 2.0). No supplier lock-in at the standard level. Datasets curated under VIDS can be exported to nnU-Net, MONAI, COCO, or flat NIfTI without losing the underlying data or provenance.
 
 **Lower cost of failure.** A vendor delivery that fails validation is identified at acceptance, not after integration. Remediation occurs while the contractual obligation is still active and the cost falls on the vendor.
 
-**Scope of validation.** VIDS validates dataset structure, annotation provenance, quality documentation, and ML readiness. It does not assess the clinical correctness of individual annotations, the diagnostic accuracy of any AI model trained on the dataset, or the dataset's suitability for a specific clinical use case. A successful VIDS validation establishes that a dataset is structurally sound, audit-ready, and provenance-traceable — not that the underlying data is clinically correct or fit for any particular purpose.
+**Scope of validation.** VIDS verifies that a dataset's documentation is present and structured: dataset structure, annotation provenance, quality documentation, and ML readiness. It does not assess the clinical correctness of individual annotations, the diagnostic accuracy of any model trained on the dataset, or suitability for a specific clinical use case. A passing result establishes that the required documentation exists and is where it should be, not that the underlying data is clinically correct or fit for any particular purpose.
 
-## About operators
+## Who runs the validator
 
-VIDS is an open standard. Compliance evaluations and attestation issuance are performed by approved evaluation operators. Princeton Medical Systems is the current sole operator and maintains the reference validator, evaluation rubric, and attestation format.
+Anyone. The specification is published under CC BY 4.0 and the reference validator under Apache 2.0, so a buyer, a vendor, or a third party can run it and get the same result. Nothing about a VIDS result depends on who produced it, which is the property that makes it useful in a contract.
 
-For evaluation requests or procurement-specific inquiries: [info@princetonmedicalsystems.com](mailto:info@princetonmedicalsystems.com)
+Princeton Medical Systems maintains the reference validator as steward of the standard. It separately publishes a scoring rubric and offers documentation assessment as a commercial service; neither is part of the standard. Those are different roles, and the standard does not depend on the service: no VIDS result requires our involvement, and we issue nothing that a buyer could not generate themselves.
+
+For assessment requests or procurement-specific inquiries: [info@princetonmedicalsystems.com](mailto:info@princetonmedicalsystems.com)
 
 ## Reference materials
 

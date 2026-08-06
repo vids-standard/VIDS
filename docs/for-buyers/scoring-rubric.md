@@ -1,23 +1,25 @@
-# VIDS Compliance Scoring Rubric
+# Documentation Scoring Rubric
 
-The 22-dimension framework used to score medical imaging datasets in [VIDS Compliance Evaluations](evaluation.md). Published openly so that any score in any evaluation report is traceable to documented criteria.
+The 22-dimension framework used in [dataset documentation assessments](documentation-assessment.md). It is a diagnostic instrument, not a conformance test. Published openly so that any score in any assessment report is traceable to documented criteria.
 
 ## Purpose
 
-The rubric makes evaluations consistent across operators, defensible against scrutiny, and reproducible from the same dataset inputs. It complements the [VIDS Reference Validator](https://github.com/vids-standard/vids-standard){target="_blank" rel="noopener"} without replacing it.
+Publishing the criteria makes an assessment inspectable: a reader can see which dimension was scored, why, and disagree with a specific line rather than with a number. Several dimensions still call for judgement, so two reviewers may reach different conclusions on the same dataset; the rubric makes those differences visible and arguable rather than hidden. It complements the [VIDS Reference Validator](https://github.com/vids-standard/vids-standard){target="_blank" rel="noopener"} without replacing it, and the validator remains the only thing that determines conformance.
 
 ## Relationship to the validator
 
-The VIDS Reference Validator checks 21 rules and produces a binary PASS/FAIL outcome. The rubric scores 22 dimensions and produces a granular score (X / 22) used for diagnostic detail. The two scoring systems serve different purposes:
+**VIDS conformance is determined by the Reference Validator, and by nothing else.** The validator checks 21 rules at the selected profile and produces the PASS or FAIL result. A rubric score is not a conformance result and cannot substitute for one.
+
+The rubric is a diagnostic instrument. It scores 22 dimensions to describe how completely a dataset is documented, including some recommended items, such as class-distribution documentation, that the specification does not make a requirement. That breadth is useful for deciding what to fix; it is not a second definition of conformance.
 
 | Validator (21 rules) | Rubric (22 dimensions) |
 |---|---|
-| Binary PASS/FAIL at the specified Profile | Granular scoring (X / 22) for diagnostic detail |
-| Used in: contract acceptance, [attestation](attestation.md) issuance | Used in: [evaluation reports](evaluation.md) |
-| Automated, reproducible from any installation | Manual scoring by trained evaluator |
-| Output: `validation_report.json` | Output: VIDS Compliance Evaluation Report |
+| Determines VIDS conformance: PASS or FAIL at the profile | Describes documentation coverage: X / 22 |
+| Automated, reproducible from any installation | Assessed by a reviewer |
+| Used in contract acceptance, see [validation reports](validation-report.md) | Used in [assessment reports](documentation-assessment.md) to explain gaps |
+| Output: `validation_report.json` | Output: a written assessment |
 
-The rubric is wider than the validator by design. It covers some recommended fields (such as class distribution documentation) that are not yet hard-validated rules but still inform a buyer's judgment. Validator results take precedence for contract decisions; rubric scores supply the explanation.
+Where the two appear to disagree, the validator governs. A dataset can hold a low rubric score and still be conformant, and a high score establishes nothing about conformance on its own.
 
 ## Scoring model
 
@@ -28,14 +30,11 @@ Each dimension is scored binary:
 
 No partial credit. A dimension either meets the pass criterion or it does not. This is deliberate: subjective half-credit scoring breaks reproducibility across evaluators.
 
-### Profile thresholds
+### Reading a score
 
-| Profile | Required | Notes |
-|---|---|---|
-| **POC** | 16 / 22 | All Structure (S1–S5) and all Provenance (P1–P6) dimensions must be present (5 + 6 = 11 mandatory). Quality and ML Readiness dimensions add to the count but are individually optional. Threshold = mandatory 11 + 5 of remaining 11. |
-| **Full** | 22 / 22 | All 22 dimensions must score 1. A single missing dimension = FAIL. This aligns with the validator's zero-FAIL requirement at the Full profile. |
+The score is reported as X / 22, with the missing dimensions named. There is no threshold, because the rubric does not issue a verdict. A dataset scoring 18 / 22 is not thereby "failing"; it is a dataset with four documentation gaps, which the report identifies so they can be closed.
 
-PASS / FAIL is the headline outcome. The X / 22 score exists to explain what failed, not to create a "this is mostly compliant" soft pass. There is no soft pass.
+Whether the dataset conforms is answered by running the validator. That answer is binary, automated, and reproducible by anyone holding the dataset.
 
 ---
 
@@ -133,15 +132,15 @@ README or `dataset_description.json` explicitly documents known limitations: ano
 
 - **Assess clinical correctness of annotations.** The rubric checks documentation; it does not verify whether a segmentation is anatomically correct.
 - **Replace domain-specific quality criteria.** Buyer-defined acceptance criteria (subject count, modality coverage, label accuracy) layer on top of the rubric, not within it.
-- **Certify regulatory compliance.** The rubric provides auditable evidence; it does not constitute or replace FDA, EU AI Act, or CDSCO certification.
+- **Establish regulatory compliance.** The rubric records what documentation is present; it does not constitute or replace FDA, EU AI Act, or CDSCO processes.
 
-## Operator
+## Who uses this rubric
 
-The current operator of VIDS Compliance Evaluations using this rubric is Princeton Medical Systems. The rubric itself is part of the VIDS open standard and is governed under the same license terms (CC BY 4.0).
+The rubric is a Princeton Medical Systems methodology, informed by VIDS but not part of it. It is not a registered VIDS artifact and creates no conformance requirement. It is published under CC BY 4.0 so that anyone may apply it, inspect it, or disagree with it, and so that an assessment produced with it can be checked rather than taken on trust.
 
 ## Related
 
-- [Compliance Evaluation](evaluation.md) — how the rubric is applied to a specific dataset
-- [Validation Attestation](attestation.md) — issued for datasets that achieve 22 / 22 at the Full profile
+- [Dataset Documentation Assessment](documentation-assessment.md) — how the rubric is applied to a specific dataset
+- [Validation Report](validation-report.md) — the validator output, reproducible by anyone holding the dataset
 - [VIDS Specification](../specification/index.md) — the underlying technical standard
 - [Reference Procurement Language](sow-addendum.md) — contract clauses that make validator results binding

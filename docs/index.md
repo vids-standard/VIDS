@@ -39,7 +39,7 @@ Every annotation carries a structured record of who created it, when, with what 
 
 ### :material-check-decagram: Automated Validation
 
-21 machine-enforceable validation rules. One command. Binary PASS/FAIL. Compliance is determined by running the validator — not by reading a checklist. The full VIDS standard defines 22 compliance dimensions; 21 of these are machine-enforceable through the open-source validator. The remaining dimension is assessed during a Compliance Evaluation.
+21 machine-enforceable validation rules. One command. Binary PASS/FAIL. Conformance is determined by running the validator — not by reading a checklist. Anyone holding the dataset can run it and get the same result.
 
 </div>
 
@@ -91,8 +91,8 @@ vids-validate /path/to/dataset --profile full --json
       ✅ I003: 100 imaging JSONs valid
       ✅ I004: All files follow VIDS naming convention
       ✅ A001: derivatives/annotations/ exists
-      ✅ A002: 100 segmentation files found
-      ✅ A003: 100 annotation sidecar JSONs found
+      ✅ A002: Annotations found (100 seg)
+      ✅ A003: All annotation files have required sidecars
       ✅ A004: 100 annotation JSONs valid
       ✅ A005: All annotations have complete provenance
       ⏭  Q001: POC profile — quality/ optional
@@ -100,13 +100,13 @@ vids-validate /path/to/dataset --profile full --json
       ⏭  Q003: POC profile — annotation_agreement optional
       ⏭  M001: POC profile — ml/ optional
       ⏭  M002: POC profile — splits optional
-      ⚠️  D001: CHANGES.md missing (recommended)
+      ⏭  D001: POC profile — CHANGES.md optional (recommended)
 
     ------------------------------------------------------------
       Passed:   15
       Failed:   0
-      Warnings: 1
-      Skipped:  5
+      Warnings: 0
+      Skipped:  6
     ------------------------------------------------------------
 
     ✅ VALIDATION PASSED (15/21 rules)
@@ -188,7 +188,7 @@ Three converging pressures are making this untenable:
 |----------|---------|-------------------|
 | **Dataset duplication** | Datasets are copied across platforms without attribution or provenance | Every file carries its own structured metadata |
 | **Synthetic data** | AI-generated images are indistinguishable from real scans | Origin documentation is a structural requirement |
-| **Regulatory mandates** | EU AI Act, FDA, CDSCO require training data transparency | Machine-readable, auditable provenance chain |
+| **Regulatory mandates** | EU AI Act, FDA, CDSCO require training data transparency | Machine-readable provenance chain a reviewer can follow |
 
 ---
 
@@ -215,11 +215,11 @@ Acquiring annotated imaging datasets from external vendors? VIDS provides the pr
 
 [**Reference Procurement Language**](for-buyers/sow-addendum.md) — drop-in contract clauses that make a VIDS PASS the acceptance condition for vendor deliveries. Free to use under CC BY 4.0.
 
-[**Compliance Evaluation**](for-buyers/evaluation.md) — diagnostic assessment of an existing dataset or vendor sample against the 22 VIDS dimensions. 48-hour turnaround.
+[**Dataset Documentation Assessment**](for-buyers/documentation-assessment.md) — a separate diagnostic review that identifies documentation gaps outside validator enforcement. It does not determine VIDS conformance. 48-hour turnaround.
 
-[**Scoring Rubric**](for-buyers/scoring-rubric.md) — the published criteria behind every VIDS score, dimension by dimension.
+[**Scoring Rubric**](for-buyers/scoring-rubric.md) — the published criteria used in the separate documentation assessment, dimension by dimension.
 
-[**Validation Attestation**](for-buyers/attestation.md) — the signed artifact a vendor delivers as proof of compliance.
+[**Validation Report**](for-buyers/validation-report.md) — the machine-readable validator output a vendor delivers and a buyer reproduces.
 
 [See the full For Buyers section →](for-buyers/index.md){ .md-button }
 

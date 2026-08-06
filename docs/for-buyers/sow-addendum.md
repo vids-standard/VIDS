@@ -151,7 +151,7 @@ POC enforces 15 of 21 rules — structure, imaging, and annotation provenance. F
 
 **We already have our own dataset acceptance criteria. Why use VIDS?**
 
-VIDS does not replace your criteria. It standardizes the structural and provenance layer. Domain-specific acceptance criteria — minimum subject count, modality coverage, label accuracy — layer on top of VIDS compliance. VIDS answers "is what we received auditable?" Existing criteria answer "is what we received useful?"
+VIDS does not replace your criteria. It standardizes the structural and provenance layer. Domain-specific acceptance criteria — minimum subject count, modality coverage, label accuracy — layer on top of VIDS compliance. VIDS answers "is the required documentation present, structured, and reproducible?" Existing criteria answer "is what we received useful?"
 
 **What if our vendor has never heard of VIDS?**
 
@@ -175,7 +175,7 @@ Out of scope for this document. Those concerns are between Buyer and Vendor and 
 
 **What does it cost?**
 
-The specification, validator, examples, and reference dataset are free. Princeton Medical Systems and other implementers offer paid services around VIDS — curation, compliance auditing, training — but those are optional. Using VIDS as a procurement standard does not require purchasing anything.
+The specification, validator, examples, and reference dataset are free. Princeton Medical Systems and other implementers offer paid services around VIDS — curation, documentation assessment, training — but those are optional. Using VIDS as a procurement standard does not require purchasing anything.
 
 ---
 
@@ -201,7 +201,7 @@ The VIDS Specification and Reference Validator are separately licensed (CC BY 4.
 
 ## Related
 
-- [Validation Attestation](attestation.md) — the artifact a vendor delivers as proof of compliance under these clauses
-- [Compliance Evaluation](evaluation.md) — diagnostic assessment for buyers who want to evaluate a vendor's sample delivery before contracting
-- [Scoring Rubric](scoring-rubric.md) — the 22-dimension framework that underlies validator results
+- [Validation Report](validation-report.md) — the artifact a vendor delivers, and the buyer reproduces, under these clauses
+- [Dataset Documentation Assessment](documentation-assessment.md) — diagnostic assessment for buyers who want to evaluate a vendor's sample delivery before contracting
+- [Scoring Rubric](scoring-rubric.md) — the 22-dimension framework used in separate documentation assessments
 - [VIDS Specification](../specification/index.md) — the technical standard referenced by Clause 1
