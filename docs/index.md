@@ -20,7 +20,7 @@ An open standard for organizing, validating, and delivering annotated medical im
   <a href="https://pypi.org/project/vids-validator/"><img src="https://img.shields.io/pypi/v/vids-validator?label=validator&color=3F51B5" alt="PyPI"></a>
   <a href="https://github.com/vids-standard/vids-standard"><img src="https://img.shields.io/github/stars/vids-standard/vids-standard?style=flat&color=3F51B5" alt="GitHub"></a>
   <a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/spec-CC%20BY%204.0-3F51B5" alt="License"></a>
-  <img src="https://img.shields.io/badge/version-1.0-3F51B5" alt="Spec v1.0">
+  <img src="https://img.shields.io/badge/spec-v1.0.1-3F51B5" alt="Spec v1.0.1">
 </div>
 
 </div>

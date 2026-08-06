@@ -181,7 +181,7 @@ The specification, validator, examples, and reference dataset are free. Princeto
 
 ## References
 
-- [VIDS Specification v1.0](https://vidsstandard.org/specification/) — full normative text
+- [VIDS Specification](https://vidsstandard.org/specification/) — full normative text
 - [Validation Rules](https://vidsstandard.org/specification/validation-rules/) — the 21 rules in detail
 - [Compliance Profiles](https://vidsstandard.org/specification/profiles/) — POC vs Full comparison
 - [Validator on PyPI](https://pypi.org/project/vids-validator){target="_blank" rel="noopener"} — `pip install vids-validator`
