@@ -203,5 +203,5 @@ The VIDS Specification and Reference Validator are separately licensed (CC BY 4.
 
 - [Validation Report](validation-report.md) — the artifact a vendor delivers, and the buyer reproduces, under these clauses
 - [Dataset Documentation Assessment](documentation-assessment.md) — diagnostic assessment for buyers who want to evaluate a vendor's sample delivery before contracting
-- [Scoring Rubric](scoring-rubric.md) — the criteria used in documentation assessments, a Princeton Medical Systems methodology separate from the published benchmark
+- [Assessment Methodology](scoring-rubric.md) — the published 22 dimensions used in documentation assessments
 - [VIDS Specification](../specification/index.md) — the technical standard referenced by Clause 1

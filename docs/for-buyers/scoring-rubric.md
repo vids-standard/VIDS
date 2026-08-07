@@ -1,151 +1,120 @@
-# Documentation Scoring Rubric
+# Documentation Assessment Methodology
 
-The framework used in [dataset documentation assessments](documentation-assessment.md). It is a diagnostic instrument, not a conformance test. Published openly so that any score in any assessment report is traceable to documented criteria.
+The 22 dimensions used in [dataset documentation assessments](documentation-assessment.md). These are the dimensions of the [published benchmark](../published-benchmark.md), applied to a single dataset rather than across four.
 
-!!! note "This is not the published benchmark"
-    This rubric is a Princeton Medical Systems methodology used in commercial assessments. It is separate from the [published benchmark](../published-benchmark.md) described in Muthu and Shalen, arXiv:2604.17525, which uses a different set of dimensions and a different scoring scale. Scores from the two are not comparable.
+Using one methodology is deliberate. The same dimensions, the same three-valued scale, and the same definitions appear in the paper, in the benchmark repository, and here. There is no second scoring system to reconcile.
 
-## Purpose
+!!! warning "An assessment score is not a conformance result"
+    Assessment scores describe documentation coverage. The validator determines conformance. Where they appear to disagree, the validator governs.
 
-Publishing the criteria makes an assessment inspectable: a reader can see which dimension was scored, why, and disagree with a specific line rather than with a number. Several dimensions still call for judgement, so two reviewers may reach different conclusions on the same dataset; the rubric makes those differences visible and arguable rather than hidden. It complements the [VIDS Reference Validator](https://github.com/vids-standard/vids-standard){target="_blank" rel="noopener"} without replacing it, and the validator remains the only thing that determines conformance.
+## Scoring
 
-## Relationship to the validator
-
-**Assessment scores describe documentation coverage. The validator determines conformance. Where they appear to disagree, the validator governs.**
-
-The validator checks 21 rules at the selected profile and produces the PASS or FAIL result. A rubric score is not a conformance result and cannot substitute for one.
-
-The rubric is a diagnostic instrument. It scores 22 dimensions to describe how completely a dataset is documented, including some recommended items, such as class-distribution documentation, that the specification does not make a requirement. That breadth is useful for deciding what to fix; it is not a second definition of conformance.
-
-| Validator (21 rules) | Rubric (22 dimensions) |
+| Score | Meaning |
 |---|---|
-| Determines VIDS conformance: PASS or FAIL at the profile | Describes documentation coverage: X / 22 |
-| Automated, reproducible from any installation | Assessed by a reviewer |
-| Used in contract acceptance, see [validation reports](validation-report.md) | Used in [assessment reports](documentation-assessment.md) to explain gaps |
-| Output: `validation_report.json` | Output: a written assessment |
+| **1.0** | Satisfied |
+| **0.5** | Partial |
+| **0.0** | Absent |
 
-Where the two appear to disagree, the validator governs. A dataset can hold a low rubric score and still be conformant, and a high score establishes nothing about conformance on its own.
+Partial credit has a precise definition, quoted from the published methodology:
 
-## Scoring model
+> Information is present in the dataset but not in a machine-readable or standardized form (e.g., provenance described in a companion paper but absent from the dataset files).
 
-Each dimension is scored binary:
+A dataset that describes its annotation process in an accompanying document has done something real, and something different from a dataset that documents nothing. It has also not done what VIDS asks, which is to put that information where a machine can find it. The middle value keeps those two apart.
 
-- **1** — Present and compliant. The pass criterion is fully met.
-- **0** — Missing, non-compliant, or partially met. No partial credit.
+## Reading a score
 
-No partial credit. A dimension either meets the pass criterion or it does not. This is deliberate: subjective half-credit scoring breaks reproducibility across evaluators.
-
-### Reading a score
-
-The score is reported as X / 22, with the missing dimensions named. There is no threshold, because the rubric does not issue a verdict. A dataset scoring 18 / 22 is not thereby "failing"; it is a dataset with four documentation gaps, which the report identifies so they can be closed.
+The score is reported as X / 22, with absent and partially satisfied dimensions identified separately. There is no threshold and no verdict. A dataset at 18 / 22 is not failing; it is a dataset with four documentation gaps, identified so they can be closed.
 
 Whether the dataset conforms is answered by running the validator. That answer is binary, automated, and reproducible by anyone holding the dataset.
 
----
+## The 22 dimensions
 
-## A. Structure (5 dimensions)
+### Structure
 
-Structural compliance: directory layout, naming, and dataset-level metadata.
+| | Dimension |
+|---|---|
+| **S1** | Dataset marker |
+| **S2** | Dataset description |
+| **S3** | Participant registry |
+| **S4** | Human-readable README |
+| **S5** | Subject hierarchy |
+| **S6** | Session hierarchy |
 
-### S1 — Directory Structure
-Dataset root contains required directories (`sub-*`/`ses-*`/`<modality>`/) and matches the VIDS reference layout. `derivatives/annotations/` tree mirrors the source tree.
+### Imaging
 
-### S2 — File Naming
-All files follow the `sub-<ID>_ses-<ID>_<modality>_<suffix>.<extension>` pattern. Naming is deterministic and consistent across all subjects.
+| | Dimension |
+|---|---|
+| **I1** | Standardized format (NIfTI) |
+| **I2** | Per-image metadata sidecar |
+| **I3** | Consistent file naming |
 
-### S3 — Dataset Description
-`dataset_description.json` present at root with all required fields: `Name`, `VIDSVersion`, `DatasetVersion`, `License`, `Description`, `Authors`.
+### Annotation
 
-### S4 — Metadata Consistency
-Required fields populated across all subjects, sessions, and annotation files. Participants registry (`.json` or `.tsv`) lists every subject directory.
+| | Dimension |
+|---|---|
+| **A1** | Structured annotation directory |
+| **A2** | Segmentation masks |
+| **A3** | Per-annotation metadata sidecar |
+| **A4** | Machine-readable label map |
 
-### S5 — Version Declaration
-`.vids` marker file present and correctly declares profile (POC or Full) and `vids_version` (1.0).
+### Provenance
 
----
+| | Dimension |
+|---|---|
+| **P1** | Annotator identity |
+| **P2** | Annotator credentials |
+| **P3** | Annotation tool |
+| **P4** | Annotation date |
+| **P5** | QC review documented |
 
-## B. Annotation Provenance (6 dimensions)
+Provenance is consistently the weakest category. Across the four datasets in the published benchmark it averaged 0.38 out of 5. It is also the category a downstream reader most needs when deciding whether to rely on a label.
 
-The category that distinguishes VIDS from other dataset standards. Every annotation must trace back to who, when, how, and under what review.
+### Quality
 
-### P1 — Annotator Identity
-Each annotation sidecar records annotator ID or name. Pseudonymized identifiers are acceptable if mapped consistently across the dataset.
+| | Dimension |
+|---|---|
+| **Q1** | Inter-annotator agreement |
+| **Q2** | Quality summary |
 
-### P2 — Annotator Role / Type
-Each annotation declares whether the annotator is human, automated, or hybrid. Human annotators carry credentials or specialty when available.
+### ML Readiness
 
-### P3 — Annotation Timestamp
-Each annotation records the date (or datetime) the annotation was performed.
+| | Dimension |
+|---|---|
+| **M1** | Documented splits |
+| **M2** | Split rationale |
 
-### P4 — Annotation Tool
-Each annotation records the tool and version used (for example, 3D Slicer 5.6.2, MD.ai, custom pipeline).
+## Applying the methodology
 
-### P5 — Annotation Protocol
-A defined annotation protocol or guideline document is referenced from `dataset_description.json` or README. The same protocol applies to all subjects unless explicitly varied.
+These are the dimensions as published. They were defined and applied to the datasets described in the paper, which included both segmentation and classification datasets.
 
-### P6 — Multi-annotator Tracking
-Where multiple annotators contributed, each finding is attributable to a specific annotator. Reviewer / second-annotator records appear in the `QualityControl` block where applicable.
+Each dimension asks a specific question and records what it finds. A2 asks whether segmentation masks are present, so a dataset built for a different annotation task records 0.0 there. In the published benchmark, CheXpert scored 0.0 on A2 for that reason. That is the instrument reporting accurately rather than judging the dataset, and an assessment names the dimension alongside the score so a reader can see what was asked.
 
----
+Whether the annotation dimensions should be generalized to task-appropriate annotation artifacts, while preserving comparability with the published benchmark, is an open question for a future specification release. It is recorded rather than answered here, because changing a published dimension is a governance decision and not a website edit.
 
-## C. Quality Documentation (5 dimensions)
+## Additional buyer considerations
 
-Required for Full profile. Documents how quality was measured, not whether it is good.
+These are not scored and are not part of VIDS. They are questions worth asking, raised alongside an assessment rather than folded into a number.
 
-### Q1 — QA Process Defined
-`quality/quality_summary.json` describes the QA process: review percentage, double-annotation rate, review method.
+- **Intended use.** Is the population, indication and setting the dataset was assembled for stated anywhere?
+- **Known limitations.** Are the failure modes, exclusions and biases the curator is aware of written down?
+- **Class distribution.** For a labelled dataset, is the distribution across classes documented, and does it match what your use requires?
+- **Licensing.** Are the terms clear, and do they permit what you intend, including model training and redistribution?
+- **Governance.** Who maintains the dataset, and what happens when a defect is found after delivery?
 
-### Q2 — QA Results
-Measured outputs are reported: pass rates on first submission, after revision, total revisions required.
+They are unscored deliberately. A score implies a defined criterion and a defensible cut-off; these are matters for judgement and discussion, and a number would obscure that rather than sharpen it.
 
-### Q3 — Inter-annotator Agreement
-`quality/annotation_agreement.json` present with method (for example, Dice), sample size, aggregate statistics, and per-subject results where applicable.
+## Provenance of this methodology
 
-### Q4 — Validation Evidence
-Validation report from the VIDS Reference Validator is included in the dataset archive and references the specific validator version used.
+The dimensions and scoring are those published in:
 
-### Q5 — Class Distribution
-`quality/class_distribution.json` (or equivalent) documents class frequencies, anatomical or clinical-score distributions, and any known imbalances. Recommended for Full profile and required for any dataset intended for ML training.
+> Muthu, J. S. and Shalen, J. *VIDS: A Verified Imaging Dataset Standard for Medical AI.* arXiv:2604.17525.
 
----
+The per-dimension scores for the four benchmarked datasets, and a script that recomputes the totals from them, are in [vids-benchmarks](https://github.com/vids-standard/vids-benchmarks){target="_blank" rel="noopener"}.
 
-## D. ML Readiness (6 dimensions)
-
-Whether the dataset is usable in an ML pipeline without further restructuring.
-
-### M1 — Label Consistency
-Annotation schema is uniform across all subjects. `LabelMap` (for segmentation) is consistent; bounding box / classification taxonomies do not vary mid-dataset.
-
-### M2 — Format Compatibility
-Files are in standard ML-ready formats: NIfTI for imaging, JSON for sidecars. Export paths to nnU-Net, MONAI, COCO, or flat NIfTI are documented or exportable via the reference tooling.
-
-### M3 — Data Completeness
-No critical files are missing. Every subject directory contains the imaging and annotation files declared in the manifest. Empty or stub files are flagged in the documentation.
-
-### M4 — Intended Use Declared
-`dataset_description.json` declares the dataset's intended use (training, validation, regulatory submission) in the `Description` or `DatasetType` field.
-
-### M5 — Known Limitations
-README or `dataset_description.json` explicitly documents known limitations: anonymized identifiers, missing demographics, modality biases, geographic source restrictions.
-
-### M6 — Train / Test Separation
-`ml/splits.json` present with subject-level splits (no slice-level or study-level splits that risk data leakage). Random seed and split strategy documented.
-
----
-
-## What this rubric does not do
-
-- **Assess clinical correctness of annotations.** The rubric checks documentation; it does not verify whether a segmentation is anatomically correct.
-- **Replace domain-specific quality criteria.** Buyer-defined acceptance criteria (subject count, modality coverage, label accuracy) layer on top of the rubric, not within it.
-- **Establish regulatory compliance.** The rubric records what documentation is present; it does not constitute or replace FDA, EU AI Act, or CDSCO processes.
-
-## Who uses this rubric
-
-The rubric is a Princeton Medical Systems methodology, informed by VIDS but not part of it. It is not a registered VIDS artifact and creates no conformance requirement. It is published under CC BY 4.0 so that anyone may apply it, inspect it, or disagree with it, and so that an assessment produced with it can be checked rather than taken on trust.
+The dimension definitions and per-dimension scores in `vids-benchmarks` are published under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/){target="_blank" rel="noopener"}, so anyone may apply the same criteria. That is the point of publishing them: an assessment can be checked rather than taken on trust, and a buyer or vendor can reach their own conclusion from the same definitions.
 
 ## Related
 
-- [Dataset Documentation Assessment](documentation-assessment.md) — how the rubric is applied to a specific dataset
-- [Validation Report](validation-report.md) — the validator output, reproducible by anyone holding the dataset
-- [VIDS Specification](../specification/index.md) — the underlying technical standard
-- [Reference Procurement Language](sow-addendum.md) — contract clauses that make validator results binding
+- [Published Benchmark](../published-benchmark.md) — the same methodology applied to four public datasets
+- [Dataset Documentation Assessment](documentation-assessment.md) — the service that applies it
+- [Validation Report](validation-report.md) — the validator output, which determines conformance

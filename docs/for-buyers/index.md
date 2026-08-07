@@ -24,13 +24,13 @@ CC BY 4.0. Free to use, adapt, and redistribute.
 
 ## How VIDS works for buyers
 
-The buyer-side adoption surface has four parts. Each is purpose-built and citable in contracts and in regulatory review.
+The buyer-side adoption surface has four parts. Each serves a defined role in procurement and documentation review.
 
 **[Reference Procurement Language](sow-addendum.md)** — drop-in clauses that make VIDS PASS the acceptance condition for dataset deliveries.
 
-**[Dataset Documentation Assessment](documentation-assessment.md)** — a separate diagnostic review against a 22-dimension rubric, used to surface documentation gaps in already-acquired datasets or vendor samples before contracting. Diagnostic only; it does not determine VIDS conformance.
+**[Dataset Documentation Assessment](documentation-assessment.md)** — a diagnostic review against the published 22-dimension methodology, used to surface documentation gaps in already-acquired datasets or vendor samples before contracting. Diagnostic only; it does not determine VIDS conformance.
 
-**[Scoring Rubric](scoring-rubric.md)** — the criteria used in documentation assessments. A Princeton Medical Systems methodology, separate from the published benchmark, opened so any score is traceable to documented criteria.
+**[Assessment Methodology](scoring-rubric.md)** — the 22 published dimensions used in documentation assessments, the same ones behind the published benchmark. Open, so any score is traceable to documented criteria.
 
 **[Validation Report](validation-report.md)** — the machine-readable validator output. A vendor attaches it to a delivery; a buyer reproduces it independently before accepting. Reproducibility is what makes it evidence.
 
@@ -44,13 +44,13 @@ The buyer-side adoption surface has four parts. Each is purpose-built and citabl
 
 **Lower cost of failure.** A vendor delivery that fails validation is identified at acceptance, not after integration. Remediation occurs while the contractual obligation is still active and the cost falls on the vendor.
 
-**Scope of validation.** VIDS verifies that a dataset's documentation is present and structured: dataset structure, annotation provenance, quality documentation, and ML readiness. It does not assess the clinical correctness of individual annotations, the diagnostic accuracy of any model trained on the dataset, or suitability for a specific clinical use case. A passing result establishes that the required documentation exists and is where it should be, not that the underlying data is clinically correct or fit for any particular purpose.
+**Scope of validation.** VIDS verifies that a dataset's documentation is present and structured: dataset structure, imaging metadata, annotation files and their provenance, quality documentation, and ML readiness. It does not assess the clinical correctness of individual annotations, the diagnostic accuracy of any model trained on the dataset, or suitability for a specific clinical use case. A passing result establishes that the required documentation exists and is where it should be, not that the underlying data is clinically correct or fit for any particular purpose.
 
 ## Who runs the validator
 
 Anyone. The specification is published under CC BY 4.0 and the reference validator under Apache 2.0, so a buyer, a vendor, or a third party can run it and get the same result. Nothing about a VIDS result depends on who produced it, which is the property that makes it useful in a contract.
 
-Princeton Medical Systems maintains the reference validator as steward of the standard. It separately publishes a scoring rubric and offers documentation assessment as a commercial service; neither is part of the standard. Those are different roles, and the standard does not depend on the service: no VIDS result requires our involvement, and we issue nothing that a buyer could not generate themselves.
+Princeton Medical Systems maintains the reference validator as steward of the standard, and separately offers documentation assessment as a commercial service using the published benchmark methodology. The service is not part of the standard, and no VIDS result depends on it. Those are different roles, and the standard does not depend on the service: no VIDS result requires our involvement, and we issue nothing that a buyer could not generate themselves.
 
 For assessment requests or procurement-specific inquiries: [info@princetonmedicalsystems.com](mailto:info@princetonmedicalsystems.com)
 

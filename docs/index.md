@@ -215,9 +215,9 @@ Acquiring annotated imaging datasets from external vendors? VIDS provides the pr
 
 [**Reference Procurement Language**](for-buyers/sow-addendum.md) — drop-in contract clauses that make a VIDS PASS the acceptance condition for vendor deliveries. Free to use under CC BY 4.0.
 
-[**Dataset Documentation Assessment**](for-buyers/documentation-assessment.md) — a separate diagnostic review that identifies documentation gaps outside validator enforcement. It does not determine VIDS conformance. 48-hour turnaround.
+[**Dataset Documentation Assessment**](for-buyers/documentation-assessment.md) — a diagnostic review that measures documentation coverage in vendor samples or existing datasets, including datasets not yet structured for the validator. It does not determine VIDS conformance. 48-hour turnaround.
 
-[**Scoring Rubric**](for-buyers/scoring-rubric.md) — the published criteria used in the separate documentation assessment, dimension by dimension.
+[**Assessment Methodology**](for-buyers/scoring-rubric.md) — the 22 published dimensions used in documentation assessments, dimension by dimension.
 
 [**Validation Report**](for-buyers/validation-report.md) — the machine-readable validator output a vendor delivers and a buyer reproduces.
 

@@ -60,8 +60,8 @@ The benchmark was applied by hand, to datasets that predate VIDS and were never 
 
 A benchmark percentage is a description. A validator result is a verdict. Only the second is a conformance claim, and only the specification defines what conformance means.
 
-## Relationship to the assessment rubric
+## The same methodology assesses a single dataset
 
-The [documentation scoring rubric](for-buyers/scoring-rubric.md) used in Princeton Medical Systems assessments is a **separate instrument** with its own dimensions and its own scoring. It is not this benchmark, and a rubric score cannot be compared with a percentage on this page.
+Princeton Medical Systems applies these dimensions and this scale in [dataset documentation assessments](for-buyers/documentation-assessment.md), to one dataset rather than four. It is the same instrument, so an assessment score and a percentage on this page describe the same thing and can be read side by side.
 
-Both happen to use 22 dimensions. They are not the same 22.
+There is no second scoring methodology. The specification defines the requirements, the validator determines conformance, and this methodology measures documentation coverage for datasets that were never structured for VIDS in the first place.
