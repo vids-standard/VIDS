@@ -30,7 +30,7 @@ The buyer-side adoption surface has four parts. Each serves a defined role in pr
 
 **[Dataset Documentation Assessment](documentation-assessment.md)** — a diagnostic review against the published 22-dimension methodology, used to surface documentation gaps in already-acquired datasets or vendor samples before contracting. Diagnostic only; it does not determine VIDS conformance.
 
-**[Assessment Methodology](scoring-rubric.md)** — the 22 published dimensions used in documentation assessments, the same ones behind the published benchmark. Open, so any score is traceable to documented criteria.
+**[Assessment Methodology](assessment-methodology.md)** — the 22 published dimensions used in documentation assessments, the same ones behind the published benchmark. Open, so any score is traceable to documented criteria.
 
 **[Validation Report](validation-report.md)** — the machine-readable validator output. A vendor attaches it to a delivery; a buyer reproduces it independently before accepting. Reproducibility is what makes it evidence.
 

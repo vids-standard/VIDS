@@ -1,6 +1,6 @@
 # Dataset Documentation Assessment
 
-A dataset documentation assessment is a diagnostic review of a medical imaging dataset against the [published assessment methodology](scoring-rubric.md): the 22 dimensions and 1 / 0.5 / 0 scoring published in Muthu and Shalen, arXiv:2604.17525, applied to one dataset rather than four. It surfaces gaps across structure, imaging, annotation, provenance, quality, and ML readiness that might otherwise be discovered only after integration begins.
+A dataset documentation assessment is a diagnostic review of a medical imaging dataset against the [published assessment methodology](assessment-methodology.md): the 22 dimensions and 1 / 0.5 / 0 scoring published in Muthu and Shalen, arXiv:2604.17525, applied to one dataset rather than four. It surfaces gaps across structure, imaging, annotation, provenance, quality, and ML readiness that might otherwise be discovered only after integration begins.
 
 It is diagnostic, not determinative. An assessment explains what is missing and what it would take to close the gaps; it does not issue a conformance result.
 
@@ -18,16 +18,16 @@ Assessments are most useful in three scenarios:
 
 ## What an assessment covers
 
-Datasets are scored against the 22 published dimensions in six categories, described in the [assessment methodology](scoring-rubric.md):
+Datasets are scored against the 22 published dimensions in six categories, described in the [assessment methodology](assessment-methodology.md):
 
 | Category | Dimensions | What is checked |
 |---|---|---|
-| [Structure](scoring-rubric.md#structure) | 6 | Dataset marker, description, participant registry, README, subject and session hierarchy |
-| [Imaging](scoring-rubric.md#imaging) | 3 | Standardized format, per-image metadata sidecar, consistent file naming |
-| [Annotation](scoring-rubric.md#annotation) | 4 | Annotation directory, annotation artifacts, per-annotation sidecar, machine-readable label map |
-| [Provenance](scoring-rubric.md#provenance) | 5 | Annotator identity, credentials, tool, date, QC review |
-| [Quality](scoring-rubric.md#quality) | 2 | Inter-annotator agreement, quality summary |
-| [ML Readiness](scoring-rubric.md#ml-readiness) | 2 | Documented splits, split rationale |
+| [Structure](assessment-methodology.md#structure) | 6 | Dataset marker, description, participant registry, README, subject and session hierarchy |
+| [Imaging](assessment-methodology.md#imaging) | 3 | Standardized format, per-image metadata sidecar, consistent file naming |
+| [Annotation](assessment-methodology.md#annotation) | 4 | Annotation directory, annotation artifacts, per-annotation sidecar, machine-readable label map |
+| [Provenance](assessment-methodology.md#provenance) | 5 | Annotator identity, credentials, tool, date, QC review |
+| [Quality](assessment-methodology.md#quality) | 2 | Inter-annotator agreement, quality summary |
+| [ML Readiness](assessment-methodology.md#ml-readiness) | 2 | Documented splits, split rationale |
 
 Each dimension is scored 1.0, 0.5 or 0.0 using the published definitions. The total and per-dimension findings describe documentation coverage. The validator separately determines VIDS conformance.
 
@@ -59,6 +59,6 @@ What the service adds is time and interpretation, not authority.
 
 ## Related
 
-- [Assessment Methodology](scoring-rubric.md) — the 22 published dimensions used in assessments
+- [Assessment Methodology](assessment-methodology.md) — the 22 published dimensions used in assessments
 - [Validation Report](validation-report.md) — the validator output for any validation run, PASS or FAIL
 - [Reference Procurement Language](sow-addendum.md) — contract clauses that make VIDS PASS the acceptance condition

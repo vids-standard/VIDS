@@ -67,6 +67,7 @@ plugins:
         'for-buyers/certificate.md': 'for-buyers/validation-report.md'
         'for-buyers/attestation.md': 'for-buyers/validation-report.md'
         'for-buyers/evaluation.md': 'for-buyers/documentation-assessment.md'
+        'for-buyers/scoring-rubric.md': 'for-buyers/assessment-methodology.md'
 
 markdown_extensions:
   - abbr
@@ -119,7 +120,7 @@ nav:
     - Overview: for-buyers/index.md
     - Reference Procurement Language: for-buyers/sow-addendum.md
     - Dataset Documentation Assessment: for-buyers/documentation-assessment.md
-    - Assessment Methodology: for-buyers/scoring-rubric.md
+    - Assessment Methodology: for-buyers/assessment-methodology.md
     - Validation Report: for-buyers/validation-report.md
   - Published Benchmark: published-benchmark.md
   - Governance:

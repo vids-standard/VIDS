@@ -98,5 +98,5 @@ In each case, re-run the validator. Regenerating a report costs nothing, which i
 
 - [Reference Procurement Language](sow-addendum.md) — contract clauses that make a validator result the acceptance condition
 - [Dataset Documentation Assessment](documentation-assessment.md) — diagnostic review that identifies documentation gaps beyond validator conformance
-- [Assessment Methodology](scoring-rubric.md) — the published 22 dimensions used in documentation assessments
+- [Assessment Methodology](assessment-methodology.md) — the published 22 dimensions used in documentation assessments
 - [VIDS Reference Validator](https://github.com/vids-standard/vids-standard){target="_blank" rel="noopener"} — the open-source tool, free to run

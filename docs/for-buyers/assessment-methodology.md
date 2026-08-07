@@ -2,7 +2,7 @@
 
 The 22 dimensions used in [dataset documentation assessments](documentation-assessment.md). These are the dimensions of the [published benchmark](../published-benchmark.md), applied to a single dataset rather than across four.
 
-Using one methodology is deliberate. The same dimensions, the same three-valued scale, and the same definitions appear in the paper, in the benchmark repository, and here. There is no second scoring system to reconcile.
+The same dimensions, the same three-valued scale, and the same definitions appear in the paper, in the benchmark repository, and here. A score produced in an assessment can be read directly against the published results.
 
 !!! warning "An assessment score is not a conformance result"
     Assessment scores describe documentation coverage. The validator determines conformance. Where they appear to disagree, the validator governs.
