@@ -1,8 +1,8 @@
 # Documentation Assessment Methodology
 
-The 22 dimensions used in [dataset documentation assessments](documentation-assessment.md). These are the dimensions of the [published benchmark](../published-benchmark.md), applied to a single dataset rather than across four.
+The 22 dimensions used in [dataset documentation assessments](documentation-assessment.md). They are the dimensions of the [published benchmark](../published-benchmark.md), unchanged.
 
-The same dimensions, the same three-valued scale, and the same definitions appear in the paper, in the benchmark repository, and here. A score produced in an assessment can be read directly against the published results.
+The same dimensions and the same three-valued scale appear in the paper, in the benchmark repository, and here, so a score produced in an assessment can be read directly against the published results. The detailed per-dimension criteria are maintained in [vids-benchmarks](https://github.com/vids-standard/vids-benchmarks){target="_blank" rel="noopener"}.
 
 !!! warning "An assessment score is not a conformance result"
     Assessment scores describe documentation coverage. The validator determines conformance. Where they appear to disagree, the validator governs.
@@ -23,7 +23,7 @@ A dataset that describes its annotation process in an accompanying document has 
 
 ## Reading a score
 
-The score is reported as X / 22, with absent and partially satisfied dimensions identified separately. There is no threshold and no verdict. A dataset at 18 / 22 is not failing; it is a dataset with four documentation gaps, identified so they can be closed.
+The score is reported as X / 22, with absent and partially satisfied dimensions identified separately. There is no threshold and no verdict. A dataset at 18 / 22 is not failing; it is four points short of full documentation coverage, with the absent and partially satisfied dimensions identified so they can be addressed.
 
 Whether the dataset conforms is answered by running the validator. That answer is binary, automated, and reproducible by anyone holding the dataset.
 
@@ -87,7 +87,7 @@ Provenance is consistently the weakest category. Across the four datasets in the
 
 These are the dimensions as published. They were defined and applied to the datasets described in the paper, which included both segmentation and classification datasets.
 
-Each dimension asks a specific question and records what it finds. A2 asks whether segmentation masks are present, so a dataset built for a different annotation task records 0.0 there. In the published benchmark, CheXpert scored 0.0 on A2 for that reason. That is the instrument reporting accurately rather than judging the dataset, and an assessment names the dimension alongside the score so a reader can see what was asked.
+Each dimension asks a specific question and records what it finds. A2 asks whether segmentation masks are present, so a dataset built for a different annotation task records 0.0 there. In the published benchmark, CheXpert scored 0.0 on A2 for that reason. That is the methodology reporting accurately rather than judging the dataset, and an assessment names the dimension alongside the score so a reader can see what was asked.
 
 Whether the annotation dimensions should be generalized to task-appropriate annotation artifacts, while preserving comparability with the published benchmark, is an open question for a future specification release. It is recorded rather than answered here, because changing a published dimension is a governance decision and not a website edit.
 
