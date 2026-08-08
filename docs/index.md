@@ -188,7 +188,7 @@ Three converging pressures are making this untenable:
 |----------|---------|-------------------|
 | **Dataset duplication** | Datasets are copied across platforms without attribution or provenance | Every file carries its own structured metadata |
 | **Synthetic data** | AI-generated images are indistinguishable from real scans | Origin documentation is a structural requirement |
-| **Regulatory mandates** | EU AI Act, FDA, CDSCO require training data transparency | Machine-readable provenance chain a reviewer can follow |
+| **Regulatory direction** | Emerging AI regulatory frameworks increasingly emphasize governance, documentation, and traceability of AI training data throughout its lifecycle | Machine-readable provenance chain a reviewer can follow |
 
 ---
 
@@ -215,7 +215,7 @@ Acquiring annotated imaging datasets from external vendors? VIDS provides the pr
 
 [**Reference Procurement Language**](for-buyers/sow-addendum.md) — drop-in contract clauses that make a VIDS PASS the acceptance condition for vendor deliveries. Free to use under CC BY 4.0.
 
-[**Dataset Documentation Assessment**](for-buyers/documentation-assessment.md) — a diagnostic review that measures documentation coverage in vendor samples or existing datasets, including datasets not yet structured for the validator. It does not determine VIDS conformance. 48-hour turnaround.
+[**Dataset Documentation Assessment**](for-buyers/documentation-assessment.md) — a diagnostic review that measures documentation coverage in vendor samples or existing datasets, including datasets not yet structured for the validator. It does not determine VIDS conformance. Delivered within 72 hours.
 
 [**Assessment Methodology**](for-buyers/assessment-methodology.md) — the 22 published dimensions used in documentation assessments, dimension by dimension.
 

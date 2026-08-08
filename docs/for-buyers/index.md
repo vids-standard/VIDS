@@ -38,7 +38,7 @@ The buyer-side adoption surface has four parts. Each serves a defined role in pr
 
 **An objective acceptance criterion.** The validator runs on the delivered dataset and produces a binary pass/fail result. No subjective interpretation, no checklist negotiation, no "trust us" deliveries.
 
-**A reference framework citable in contracts and in regulatory review.** EU AI Act, IMDRF GMLP, and the FDA AI/ML SaMD Action Plan all point toward machine-readable provenance. VIDS provides the structure that makes those requirements concrete.
+**A reference framework for contracts and documentation review.** The EU AI Act, IMDRF Good Machine Learning Practice (GMLP), and the FDA AI/ML SaMD Action Plan all emphasize stronger governance of AI training data, including its origin, annotation, and documentation. VIDS supports these objectives through structured, machine-readable provenance.
 
 **Vendor independence.** The specification is open (CC BY 4.0). The validator is open-source (Apache 2.0). No supplier lock-in at the standard level. Datasets curated under VIDS can be exported to nnU-Net, MONAI, COCO, or flat NIfTI without losing the underlying data or provenance.
 

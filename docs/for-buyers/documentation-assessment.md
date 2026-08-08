@@ -1,6 +1,6 @@
 # Dataset Documentation Assessment
 
-A dataset documentation assessment is a diagnostic review of a medical imaging dataset against the [published assessment methodology](assessment-methodology.md): the 22 dimensions and 1 / 0.5 / 0 scoring published in Muthu and Shalen, arXiv:2604.17525, applied to one dataset rather than four. It surfaces gaps across structure, imaging, annotation, provenance, quality, and ML readiness that might otherwise be discovered only after integration begins.
+A dataset documentation assessment is a diagnostic review of a medical imaging dataset against the [published assessment methodology](assessment-methodology.md): the 22 dimensions and 1 / 0.5 / 0 scoring published in Muthu and Shalen (arXiv:2604.17525). It surfaces gaps across structure, imaging, annotation, provenance, quality, and ML readiness that might otherwise be discovered only after integration begins.
 
 It is diagnostic, not determinative. An assessment explains what is missing and what it would take to close the gaps; it does not issue a conformance result.
 
@@ -35,7 +35,7 @@ Each dimension is scored 1.0, 0.5 or 0.0 using the published definitions. The to
 
 An assessment produces a structured report covering:
 
-- **Executive Summary** — the validator result for the dataset, the assessment score (X / 22) as documentation coverage, and the largest gaps in 1–2 lines each
+- **Executive Summary** — the assessment score (X / 22) as documentation coverage, and the largest gaps in 1–2 lines each. A baseline validator result may also be included; for a dataset not yet structured for VIDS, that result establishes non-conformance and does not substitute for the gap analysis
 - **Documentation Coverage Breakdown** — per-category scores with notes on each dimension cluster
 - **Operational Implications** — concrete impact on the dataset's usability for the intended use
 - **Remediation Path** — the steps required to close the identified documentation gaps, with effort tier (low / moderate / significant) and primary dependency. Any validator failures are listed separately, since those are the ones that determine conformance
@@ -47,11 +47,11 @@ The validator's raw JSON output is included as an attachment for independent re-
 
 1. **Submit the dataset or its directory description.** A few sample sidecar JSONs are typically sufficient if the full dataset cannot be transferred.
 2. **Specify the intended use** — prototyping, production, or regulatory submission. This determines the recommended Profile (POC or Full).
-3. **Receive the report within 48 hours.** A typical assessment takes 1–2 hours of reviewer time once the dataset is accessible. The 48-hour SLA covers intake, scoring, and report production.
+3. **Receive the report within 72 hours.** Assessments are delivered within 72 hours of receiving the dataset and supporting documentation. Exceptionally large or unusually complex datasets may require a mutually agreed timeline.
 
 ## Who performs an assessment
 
-Princeton Medical Systems offers documentation assessment as a commercial service, using the VIDS Reference Validator and the published benchmark methodology. Both are open: the validator under Apache 2.0, the rubric under CC BY 4.0. Nothing in an assessment requires our involvement: a buyer or vendor can apply the same published criteria to the same inputs and compare their findings with ours.
+Princeton Medical Systems offers documentation assessment as a commercial service, using the VIDS Reference Validator and the published benchmark methodology. Both are open: the validator under Apache 2.0, and the published methodology and its per-dimension data under CC BY 4.0. Nothing in an assessment requires our involvement: a buyer or vendor can apply the same published criteria to the same inputs and compare their findings with ours.
 
 What the service adds is time and interpretation, not authority.
 
