@@ -64,7 +64,10 @@ plugins:
   - search
   - redirects:
       redirect_maps:
-        'for-buyers/certificate.md': 'for-buyers/attestation.md'
+        'for-buyers/certificate.md': 'for-buyers/validation-report.md'
+        'for-buyers/attestation.md': 'for-buyers/validation-report.md'
+        'for-buyers/evaluation.md': 'for-buyers/documentation-assessment.md'
+        'for-buyers/scoring-rubric.md': 'for-buyers/assessment-methodology.md'
 
 markdown_extensions:
   - abbr
@@ -116,7 +119,13 @@ nav:
   - For Buyers:
     - Overview: for-buyers/index.md
     - Reference Procurement Language: for-buyers/sow-addendum.md
-    - Compliance Evaluation: for-buyers/evaluation.md
-    - Scoring Rubric: for-buyers/scoring-rubric.md
-    - Validation Attestation: for-buyers/attestation.md
+    - Dataset Documentation Assessment: for-buyers/documentation-assessment.md
+    - Assessment Methodology: for-buyers/assessment-methodology.md
+    - Validation Report: for-buyers/validation-report.md
+  - Published Benchmark: published-benchmark.md
+  - Governance:
+    - How VIDS is Governed: governance/index.md
+    - What VIDS Checks: governance/what-vids-checks.md
+    - Decision Records: governance/decision-records.md
+    - Participation: governance/participation.md
   - GitHub: https://github.com/vids-standard/vids-standard

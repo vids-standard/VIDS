@@ -27,7 +27,7 @@ The clauses below give procurement and contract teams the language to make a VID
 1. Decide which Profile to require. POC for prototypes and internal research; Full for production, regulatory, or external-customer-facing use. See [Profile selection](#profile-selection) below.
 2. Copy Clauses 1–5 into your statement of work, master service agreement, or purchase order. Clauses 6 and 7 are situational.
 3. Fill in the bracketed placeholders — Profile choice, remediation timeline, and any optional terms.
-4. Send the SOW to your vendor with a link to [vidsstandard.org](https://vidsstandard.org){target="_blank" rel="noopener"} so they can prepare. Most vendors with mature data pipelines reach VIDS compliance within one to two weeks for POC and three to four weeks for Full.
+4. Send the SOW to your vendor with a link to [vidsstandard.org](https://vidsstandard.org){target="_blank" rel="noopener"} so they can prepare. Based on our implementation planning, an organization with a well-documented dataset may reach POC compliance in approximately one to two weeks and Full compliance in three to four weeks, depending on the condition of the source dataset.
 
 The clauses are short enough to fit on one page for legal review and were drafted to be readable by procurement and engineering leads without specialist counsel.
 
@@ -151,11 +151,11 @@ POC enforces 15 of 21 rules — structure, imaging, and annotation provenance. F
 
 **We already have our own dataset acceptance criteria. Why use VIDS?**
 
-VIDS does not replace your criteria. It standardizes the structural and provenance layer. Domain-specific acceptance criteria — minimum subject count, modality coverage, label accuracy — layer on top of VIDS compliance. VIDS answers "is what we received auditable?" Existing criteria answer "is what we received useful?"
+VIDS does not replace your criteria. It standardizes the structural and provenance layer. Domain-specific acceptance criteria — minimum subject count, modality coverage, label accuracy — layer on top of VIDS compliance. VIDS answers "is the required documentation present, structured, and reproducible?" Existing criteria answer "is what we received useful?"
 
 **What if our vendor has never heard of VIDS?**
 
-Point them to [vidsstandard.org](https://vidsstandard.org){target="_blank" rel="noopener"}. The validator is one command: `pip install vids-validator`. The specification is on a single page. Most vendors with mature data pipelines reach POC compliance in one to two weeks and Full compliance in three to four weeks. Including VIDS in the SOW gives them the runway to prepare.
+Point them to [vidsstandard.org](https://vidsstandard.org){target="_blank" rel="noopener"}. The validator is one command: `pip install vids-validator`. The specification is on a single page. Implementation effort depends on the maturity of the existing dataset and its documentation. Based on our implementation planning, organizations with well-documented datasets may reach POC compliance in approximately one to two weeks and Full compliance in three to four weeks. Actual timelines vary depending on the condition of the source dataset. Including VIDS in the SOW gives a vendor the runway to prepare.
 
 **Does this lock us into VIDS or any single supplier?**
 
@@ -163,7 +163,7 @@ No. VIDS is an open standard (CC BY 4.0 specification, Apache 2.0 tools) with no
 
 **What if partial compliance is acceptable for our use case?**
 
-Use the POC profile. POC enforces 15 of 21 rules. The rules that POC skips (quality documentation and ML splits) can remain buyer-discretionary in the SOW. Specific Full-profile rules can also be marked as WARN-acceptable in the contract if the use case justifies it.
+Use the POC profile. POC enforces 15 of 21 rules. The rules that POC skips (quality documentation, ML splits and the CHANGES.md check) can remain buyer-discretionary in the SOW. A contract may also define exceptions to its own acceptance criteria, accepting a delivery despite specific failures. That is a commercial decision about acceptance: a dataset should not be described as conformant at a profile unless the validator returns zero failures at that profile.
 
 **Can we modify these clauses?**
 
@@ -175,13 +175,13 @@ Out of scope for this document. Those concerns are between Buyer and Vendor and 
 
 **What does it cost?**
 
-The specification, validator, examples, and reference dataset are free. Princeton Medical Systems and other implementers offer paid services around VIDS — curation, compliance auditing, training — but those are optional. Using VIDS as a procurement standard does not require purchasing anything.
+The specification, validator, examples, and reference dataset are free. Princeton Medical Systems and other implementers offer paid services around VIDS — curation, documentation assessment, training — but those are optional. Using VIDS as a procurement standard does not require purchasing anything.
 
 ---
 
 ## References
 
-- [VIDS Specification v1.0](https://vidsstandard.org/specification/) — full normative text
+- [VIDS Specification](https://vidsstandard.org/specification/) — full normative text
 - [Validation Rules](https://vidsstandard.org/specification/validation-rules/) — the 21 rules in detail
 - [Compliance Profiles](https://vidsstandard.org/specification/profiles/) — POC vs Full comparison
 - [Validator on PyPI](https://pypi.org/project/vids-validator){target="_blank" rel="noopener"} — `pip install vids-validator`
@@ -201,7 +201,7 @@ The VIDS Specification and Reference Validator are separately licensed (CC BY 4.
 
 ## Related
 
-- [Validation Attestation](attestation.md) — the artifact a vendor delivers as proof of compliance under these clauses
-- [Compliance Evaluation](evaluation.md) — diagnostic assessment for buyers who want to evaluate a vendor's sample delivery before contracting
-- [Scoring Rubric](scoring-rubric.md) — the 22-dimension framework that underlies validator results
+- [Validation Report](validation-report.md) — the artifact a vendor delivers, and the buyer reproduces, under these clauses
+- [Dataset Documentation Assessment](documentation-assessment.md) — diagnostic assessment for buyers who want to evaluate a vendor's sample delivery before contracting
+- [Assessment Methodology](assessment-methodology.md) — the published 22 dimensions used in documentation assessments
 - [VIDS Specification](../specification/index.md) — the technical standard referenced by Clause 1

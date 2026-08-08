@@ -13,9 +13,6 @@ permissions:
   contents: read
   pull-requests: write
 
-concurrency:
-  group: pr-site-preview-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
 
 jobs:
   preview:

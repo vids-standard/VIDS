@@ -38,7 +38,7 @@ vids_version: 1.0
 ```
 
 - If the file contains `full`, Full profile rules are enforced (all 21 rules).
-- If the file contains `poc` or is ambiguous, POC profile rules are enforced (15 rules; Q* and M* rules are skipped).
+- If the file contains `poc` or is ambiguous, POC profile rules are enforced: the 15 S, I and A rules apply, and Q001-Q003, M001-M002 and D001 are skipped.
 - If the `.vids` file is missing, the validator defaults to POC and reports S001 as FAIL.
 
 ## Output Formats
@@ -90,7 +90,7 @@ The validator enforces 21 rules organized into 6 categories:
 | Annotation | A001–A005 | All |
 | Quality | Q001–Q003 | Full only |
 | ML | M001–M002 | Full only |
-| Metadata | D001 | All (WARN only) |
+| Metadata | D001 | Full: WARN if missing. POC: SKIP |
 
 See [Validation Rules](../specification/validation-rules.md) for detailed descriptions of each rule.
 
