@@ -92,6 +92,10 @@
     text-decoration: line-through;
   }
 
+  .profile-switch { margin-bottom: .75rem; font-size: .85rem; color: var(--md-default-fg-color--light); }
+  .prof-btn { margin-left: .4rem; padding: .15rem .7rem; border: 1px solid var(--md-default-fg-color--lightest);
+              background: transparent; color: inherit; border-radius: 3px; cursor: pointer; font: inherit; }
+  .prof-btn.active { background: var(--md-primary-fg-color); color: #fff; border-color: var(--md-primary-fg-color); }
   .tree-item .toggle {
     width: 16px;
     height: 16px;
@@ -326,6 +330,10 @@ const FILES = [
   { id: "ann_dir",      path: "derivatives/annotations/",    section: "annotation", on: true },
   { id: "seg_nii",      path: "  sub-001/…/*_seg.nii.gz",   section: "annotation", on: true },
   { id: "seg_json",     path: "  sub-001/…/*_seg.json",      section: "annotation", on: true },
+  { id: "cls_json",     path: "  sub-001/…/*_cls.json",      section: "annotation", on: false },
+  { id: "bbox_json",    path: "  sub-001/…/*_bbox.json",     section: "annotation", on: false },
+  { id: "lm_json",      path: "  sub-001/…/*_lm.json",       section: "annotation", on: false },
+  { id: "roi_json",     path: "  sub-001/…/*_roi.json",      section: "annotation", on: false },
   { id: "qual_dir",     path: "quality/",                    section: "quality",    on: true },
   { id: "qual_summary", path: "  quality_summary.json",      section: "quality",    on: true },
   { id: "qual_agree",   path: "  annotation_agreement.json", section: "quality",    on: true },
@@ -333,9 +341,18 @@ const FILES = [
   { id: "ml_splits",    path: "  splits.json",              section: "ml",         on: true },
 ];
 
+let PROFILE = "full";
+
 function on(id) { return FILES.find(f => f.id === id).on; }
+// JSON-only annotations are their own sidecars; binary annotations need a paired one.
+const JSON_ONLY = ["cls_json", "bbox_json", "lm_json", "roi_json"];
+function anyJsonOnly()    { return JSON_ONLY.some(on); }
+function anyAnnotation()  { return on("seg_nii") || anyJsonOnly(); }
+function anySidecar()     { return on("seg_nii") ? on("seg_json") : true; }
+function anySidecarJson() { return on("seg_json") || anyJsonOnly(); }
 
 function validate() {
+  const POC = PROFILE === "poc";
   return [
     { id: "S001", cat: "Structure",  desc: ".vids marker file exists",                     status: on("vids") ? "PASS" : "FAIL" },
     { id: "S002", cat: "Structure",  desc: "dataset_description.json exists and valid",     status: on("desc") ? "PASS" : "FAIL" },
@@ -348,16 +365,16 @@ function validate() {
     { id: "I003", cat: "Imaging",    desc: "Imaging sidecar JSONs are valid",               status: !on("img_json") ? "SKIP" : "PASS" },
     { id: "I004", cat: "Imaging",    desc: "Files follow VIDS naming convention",           status: !on("sub_dir") ? "SKIP" : on("img_nii") ? "PASS" : "WARN" },
     { id: "A001", cat: "Annotation", desc: "derivatives/annotations/ exists",               status: on("ann_dir") ? "PASS" : "FAIL" },
-    { id: "A002", cat: "Annotation", desc: "Segmentation files present",                    status: !on("ann_dir") ? "SKIP" : on("seg_nii") ? "PASS" : "FAIL" },
-    { id: "A003", cat: "Annotation", desc: "Annotation sidecar JSONs present",              status: !on("ann_dir") ? "SKIP" : on("seg_json") ? "PASS" : "FAIL" },
-    { id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion",          status: !on("seg_json") ? "SKIP" : "PASS" },
-    { id: "A005", cat: "Annotation", desc: "Provenance fields populated",                   status: !on("seg_json") ? "SKIP" : "PASS" },
-    { id: "Q001", cat: "Quality",    desc: "quality/ directory exists",                      status: on("qual_dir") ? "PASS" : "FAIL" },
-    { id: "Q002", cat: "Quality",    desc: "quality_summary.json present",                   status: on("qual_summary") ? "PASS" : "FAIL" },
-    { id: "Q003", cat: "Quality",    desc: "annotation_agreement.json present",              status: on("qual_agree") ? "PASS" : "FAIL" },
-    { id: "M001", cat: "ML",         desc: "ml/ directory exists",                           status: on("ml_dir") ? "PASS" : "FAIL" },
-    { id: "M002", cat: "ML",         desc: "ml/splits.json present",                         status: on("ml_splits") ? "PASS" : "FAIL" },
-    { id: "D001", cat: "Metadata",   desc: "CHANGES.md exists",                              status: on("changes") ? "PASS" : "WARN" },
+    { id: "A002", cat: "Annotation", desc: "Annotation files present (any spec suffix)",     status: !on("ann_dir") ? "SKIP" : anyAnnotation() ? "PASS" : "FAIL" },
+    { id: "A003", cat: "Annotation", desc: "Binary annotations have paired sidecars",       status: !on("ann_dir") ? "SKIP" : anySidecar() ? "PASS" : "FAIL" },
+    { id: "A004", cat: "Annotation", desc: "Annotation JSONs valid + VIDSVersion",          status: !anyAnnotation() ? "SKIP" : anySidecarJson() ? "PASS" : "FAIL" },
+    { id: "A005", cat: "Annotation", desc: "Provenance fields populated",                   status: !anyAnnotation() ? "SKIP" : anySidecarJson() ? "PASS" : "FAIL" },
+    { id: "Q001", cat: "Quality",    desc: "quality/ directory exists",                      status: POC ? "SKIP" : on("qual_dir") ? "PASS" : "FAIL" },
+    { id: "Q002", cat: "Quality",    desc: "quality_summary.json present",                   status: POC ? "SKIP" : on("qual_summary") ? "PASS" : "FAIL" },
+    { id: "Q003", cat: "Quality",    desc: "annotation_agreement.json present",              status: POC ? "SKIP" : on("qual_agree") ? "PASS" : "FAIL" },
+    { id: "M001", cat: "ML",         desc: "ml/ directory exists",                           status: POC ? "SKIP" : on("ml_dir") ? "PASS" : "FAIL" },
+    { id: "M002", cat: "ML",         desc: "ml/splits.json present",                         status: POC ? "SKIP" : on("ml_splits") ? "PASS" : "FAIL" },
+    { id: "D001", cat: "Metadata",   desc: "CHANGES.md exists",                              status: POC ? "SKIP" : on("changes") ? "PASS" : "WARN" },
   ];
 }
 
@@ -372,7 +389,11 @@ const SECTION_LABELS = {
 
 function render() {
   // ── Tree ──
-  let tree = `<div class="tree-header">📁 lung-nodule-ct-100/</div><div class="tree-body">`;
+  let tree = `<div class="profile-switch">Profile:
+      <button class="prof-btn${PROFILE==="poc"?" active":""}" onclick="setProfile('poc')">POC</button>
+      <button class="prof-btn${PROFILE==="full"?" active":""}" onclick="setProfile('full')">Full</button>
+    </div>`;
+  tree += `<div class="tree-header">📁 lung-nodule-ct-100/</div><div class="tree-body">`;
   let lastSection = "";
 
   FILES.forEach(f => {
@@ -388,7 +409,7 @@ function render() {
     </div>`;
   });
 
-  tree += `</div><div class="tree-instructions">Click any file to toggle it on/off and watch the 21 validation rules respond in real-time.</div>`;
+  tree += `</div><div class="tree-instructions">Click any file to toggle it on/off and watch the 21 validation rules respond in real-time. POC applies 15 rules; Quality, ML Readiness and D001 are skipped.</div>`;
   document.getElementById("treePanel").innerHTML = tree;
 
   // ── Validator ──
@@ -436,6 +457,8 @@ function render() {
   v += `</div><button class="reset-btn" onclick="resetAll()">Reset All Files</button>`;
   document.getElementById("validatorPanel").innerHTML = v;
 }
+
+function setProfile(p) { PROFILE = p; render(); }
 
 function toggle(id) {
   const f = FILES.find(f => f.id === id);
