@@ -21,6 +21,7 @@ Neither creates a conformance requirement. Only the [Specification](https://gith
 | [MD-0005](https://github.com/vids-standard/vids-standard/blob/main/governance/MD-0005.md) | Steering Committee Composition and Signatory Authority | Accepted | 2026-07-28 |
 | [MD-0006](https://github.com/vids-standard/vids-standard/blob/main/governance/MD-0006.md) | Assertion Discipline for VIDS Artifacts and Generators | Accepted | 2026-07-31 |
 | [MD-0007](https://github.com/vids-standard/vids-standard/blob/main/governance/MD-0007.md) | DeIdentification Semantics in SPEC Section 8.2 | Accepted | 2026-07-31 |
+| [MD-0008](https://github.com/vids-standard/vids-standard/blob/main/governance/MD-0008.md) | Adoption of the Simplified Governance Model | Accepted | 2026-09-10 |
 
 ## Change Notes
 
@@ -39,6 +40,8 @@ A few of these records answer questions adopters ask, so they are worth summaris
 **MD-0006** records a rule about what VIDS artifacts and tools may claim. No VIDS document, schema field, generator output or validator output may assert that a dataset is certified, attested, approved or assured, unless a governance decision expressly authorises that claim. No such authorisation exists. It also records that a tool may fill in a provenance field only when the act that field describes is the act the tool just performed.
 
 That second rule has a practical consequence. The scaffolding generator now writes placeholders rather than dates for acts it did not carry out, such as de-identification or annotation. A placeholder is the honest value.
+
+**MD-0008** adopts the simplified governance model now in force. GitHub records proposals, reviews, approvals, and merges; the prior signature and register mechanics are retired. It supersedes the operating model adopted in MD-0002; the earlier records stand unchanged as accepted historical records.
 
 **MD-0007** applies the same discipline to one field. Upstream de-identification and downstream format conversion are separate acts, recorded in separate fields. A format converter is not a de-identification tool, even where converting a file incidentally drops header information.
 

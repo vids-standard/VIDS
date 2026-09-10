@@ -2,75 +2,65 @@
 
 VIDS is maintained by a Steering Committee at Princeton Medical Systems. This page describes how decisions are made, who makes them, and where each decision is recorded.
 
-The governing rule of the whole model is a single sentence.
+VIDS uses lightweight governance. The goal is clear authority, technical integrity, openness, and traceability, without administrative process beyond demonstrated need. The full governance policy is [GOVERNANCE.md](https://github.com/vids-standard/vids-standard/blob/main/GOVERNANCE.md) in the repository; this page summarises it.
 
-!!! quote "The Normative Principle"
-    Only the Core Specification (SPEC) creates, modifies, or removes dataset-conformance requirements.
+!!! quote "Normative authority"
+    The VIDS Specification and its normative extensions are the only sources of VIDS conformance requirements.
 
-Everything else in the model exists to make that principle unambiguous. A decision record, a change note, an operating procedure or a registry can explain, decide, or track. None of them can make a dataset conformant or non-conformant. Only the specification does that.
+Guides, examples, this website, validator messages, decision records, and other project materials may explain or support the Specification, but they do not independently create conformance requirements. If supporting material conflicts with the Specification, the Specification governs.
 
-## Two layers
+## Five principles
 
-The repository holds two categories of document, and the dependency runs one way so that nothing has to define itself.
+1. The Specification defines conformance.
+2. The validator implements the Specification.
+3. GitHub is the primary record of changes and approvals.
+4. Routine work requires routine process.
+5. Additional review is reserved for changes that materially affect adopters or VIDS governance.
 
-**Charter documents** define how the project operates: the governance model, the contribution rules, the licence. They are amended by Steering Committee consensus.
+## The validator does not define the standard
 
-**Project artifacts** are what the project produces under that model, classified by the taxonomy below.
-
-## The artifact taxonomy
-
-| Code | Name | Purpose | Creates requirements? |
-|------|------|---------|----------------------|
-| **SPEC** | Specification | The normative standard: requirements, rules, schemas | **Yes** |
-| **MD** | Maintainer Decision | A governance decision and its rationale | No |
-| **CN** | Change Note | What changed, and what it means for adopters | No |
-| **SOP** | Standard Operating Procedure | How the project operates internally | No |
-| **REG** | Registry | Machine-readable inventory maintained by tooling | No |
-
-Two distinctions are worth stating plainly, because they are where standards usually blur.
-
-**A decision record is not a requirement.** A Maintainer Decision records what the maintainers decided and why. If that decision leads to a change in the standard, the change is made in the specification, through the specification's own review path. The decision record explains; the specification governs.
-
-**A registry is not a backdoor.** Registries are authoritative for identifiers and traceability, and for nothing else. A registry records which requirement exists and how it traces to a validation rule. It cannot create the requirement.
+The validator implements machine-checkable requirements from the Specification. If the validator and the Specification appear to disagree, the Specification governs, the discrepancy is reviewed, and the validator or Specification is corrected as appropriate. A validator defect does not by itself change the meaning of an existing VIDS requirement. This principle was first recorded in [MD-0001](decision-records.md) and is now carried in the governance policy itself.
 
 ## Who decides what
 
-| Document type | Authored by | Accepted by |
-|---------------|-------------|-------------|
-| Charter documents | Anyone, by pull request | Steering Committee consensus |
-| Specification | Contributors, by pull request | Maintainer ratification |
-| Maintainer Decision | Anyone, as Proposed | Steering Committee acceptance |
-| Change Note | Operations | Accuracy-gated |
-| Registry | Tooling | Continuous integration, where implemented |
+Changes are graded, and the grade sets the process.
 
-Specification changes are graded, and the grade sets the process. Editorial corrections can be merged by any maintainer. Minor additions require a public issue and Steering Committee consensus. Breaking changes require a public issue, a minimum thirty-day comment period, and consensus reached with community feedback in view.
+| Change | Process |
+|--------|---------|
+| **Editorial and routine**: typos, formatting, broken links, documentation improvements, examples that do not alter requirements | Merged by a maintainer. No separate approval record |
+| **Substantive specification changes**: backward-compatible changes that affect the meaning or implementation of a requirement | Review by at least one other Steering Committee member before merge. The approving pull request is the decision record |
+| **Major or breaking changes**: new REQUIRED information, removed requirements, material changes of meaning, incompatible structure changes | Public proposal, a minimum 30-day comment period, consideration of material feedback, and approval by at least two eligible Steering Committee members |
+
+Decisions concerning governance, Steering Committee membership, or other significant policy matters require approval from at least two eligible Steering Committee members. Unanimous consent is not required. Routine technical and editorial decisions are not escalated to a Steering Committee vote.
 
 ## Steering Committee
 
 | Member | Role |
 |--------|------|
 | Dr. Joan S. Muthu | Co-Founder and CTO |
-| John Shalen R. | Co-Founder and COO |
 | John Xavier | Co-Founder and Head of US and Global Operations |
+| John Shalen R. | Co-Founder and COO |
 
-All members hold governance signatory authority. Composition is recorded by Maintainer Decision and changes only by a subsequent decision taking effect from its stated date. It is recorded in [MD-0005](decision-records.md), not asserted on this page, so that there is one place to read it and one place to change it.
+The Steering Committee maintains the Specification, the validator, and related infrastructure; reviews substantive changes; approves major or breaking changes; makes governance and policy decisions; manages its own membership; and protects the neutrality and integrity of VIDS.
 
-An **Advisory Council** of independent experts advises on strategy, clinical relevance and adoption. The Council holds no normative vote, and its members serve as individuals rather than as representatives of their employers.
+A member does not approve a decision where a material conflict of interest makes independent participation inappropriate. A recused member is excluded from that specific decision, and the resolution is documented in the relevant GitHub discussion or Maintainer Decision.
+
+An **Advisory Council** of independent experts advises on strategy, clinical relevance and adoption. The Council is advisory: it does not define VIDS conformance and does not exercise Steering Committee authority. Members serve as individuals rather than as representatives of their employers. Appointments are approved by the Steering Committee under the normal decision rule.
 
 ## How a decision is recorded
 
-Every Maintainer Decision follows the same lifecycle, and the reason for its shape is that a governance record should be checkable rather than asserted.
+GitHub is the primary project record: commits, pull requests, reviews, issues, releases, tags, and CI results. A change is proposed as a pull request, reviewed at the level its grade requires, and merged. The merged pull request and the repository history are the approval record. No signatures, approval certificates, or separate status registers are used.
 
-A decision is drafted as **Proposed**. A signature copy with blank sign-off blocks collects approvals. The signed document is filed as immutable approval evidence, held outside the public repository and cited by filename only. The published record then carries a Proposed date, an Accepted date, and a completed approval table. The Accepted date is the date the last required signature was given. It is never backdated.
+A **Maintainer Decision (MD)** is written when a durable governance or policy decision is worth recording independently: a governance change, an important interpretation of authority, a major publication policy. An MD states the decision, the reason, and its effective point, and is accepted when the required Steering Committee approval is recorded and the corresponding pull request is merged. Decisions are append-only: a later decision that reverses or refines an earlier one is a new decision, and the earlier one is marked superseded.
 
-Decisions are **append-only**. An accepted decision is not rewritten to change its meaning. A later decision that reverses or refines it is a new decision, and the earlier one is marked superseded. Correcting a factual error in a decision's description of the world is permitted and dated; changing the decision itself requires a new decision.
+## Project and commercial separation
+
+VIDS governance covers the VIDS standard, its normative extensions, the open-source implementation, and associated governance decisions. It does not govern the ordinary internal operations of Princeton Medical Systems or any other company, and commercial activity does not independently redefine VIDS conformance.
 
 ## Where the records live
 
 Everything normative and every governance decision is public in the [repository](https://github.com/vids-standard/vids-standard). The [Decision Records](decision-records.md) page lists each decision with its status and date, and links to the record itself.
 
-Internal operating procedures are not published. They describe how the project runs rather than what the standard requires, and nothing in them can create a conformance requirement.
-
 ## Amending this model
 
-The governance model is itself a charter document, amended by Steering Committee consensus following the same review discipline as a specification change. Its adoption is recorded in MD-0002.
+The governance policy may be amended with approval from at least two eligible Steering Committee members, proposed through a pull request that explains the reason for the change. Once merged, the updated GOVERNANCE.md is the current policy. Adoption of the current model is recorded in [MD-0008](decision-records.md), which superseded the earlier document-taxonomy operating model.
