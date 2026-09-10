@@ -16,13 +16,13 @@ Changes to the standard are graded, and the grade sets the process.
 
 | Change | Process |
 |--------|---------|
-| **Editorial**: typos, clarifications, better examples | Pull request. Merged by any maintainer |
-| **Minor**: new optional fields, modality codes, annotation suffixes | Public issue first, then Steering Committee consensus |
-| **Major**: new required fields, new validation rules, anything breaking | Public issue, minimum thirty-day comment period, consensus with community feedback in view |
+| **Editorial**: typos, clarifications, better examples | Pull request. Merged by a maintainer |
+| **Substantive**: backward-compatible changes that affect the meaning or implementation of a requirement, such as new optional fields, modality codes, annotation suffixes | Pull request describing the conformance impact. Review by at least one other Steering Committee member before merge |
+| **Major or breaking**: new required fields, removed requirements, anything breaking | Public discussion first, minimum 30-day comment period, then approval by at least two eligible Steering Committee members |
 
 If a pull request changes the specification, say whether the change is normative, meaning it affects conformance, or editorial. That single line determines which path the change takes.
 
-Datasets valid under VIDS 1.0 remain valid under all VIDS 1.x validators. Breaking changes require a major version increment, a documented migration path, and ninety days of deprecation notice.
+Existing VIDS 1.x datasets remain conformant under later VIDS 1.x specifications, unless the earlier result depended on a validator defect or under-enforcement of an existing requirement. Breaking specification changes require a major version and an appropriate migration path.
 
 ## Add modality or framework support
 
@@ -32,13 +32,13 @@ An extension ships when a real adopter presents a dataset that requires it. Exte
 
 ## Become a maintainer
 
-Contributors who demonstrate sustained, high-quality work may be nominated as maintainers by any Steering Committee member. What counts: multiple accepted pull requests across the specification or the tools, constructive participation in change discussions, and a demonstrated grasp of the design principles. Nominations are decided by Steering Committee consensus.
+Contributors who demonstrate sustained, high-quality work may be nominated as maintainers by any Steering Committee member. What counts: multiple accepted pull requests across the specification or the tools, constructive participation in change discussions, and a demonstrated grasp of the design principles. Nominations are decided by the Steering Committee under the decision rule in the [governance model](index.md).
 
 ## Where this is going
 
 The long-term model is a VIDS Consortium with formal representation from academic institutions, clinical organisations and industry adopters. The transition begins once VIDS has active external maintainers and multiple independent implementations. Until then, governance is held by the Steering Committee and recorded in public, so that the model can be inspected before anyone has to rely on it.
 
-An **Advisory Council** of independent experts advises on strategy, clinical relevance and adoption. The Council holds no normative vote, and its members serve as individuals rather than as representatives of their employers.
+An **Advisory Council** of independent experts advises on strategy, clinical relevance and adoption. The Council is advisory: it does not define VIDS conformance and does not exercise Steering Committee authority. Members serve as individuals rather than as representatives of their employers.
 
 ## Contact
 
