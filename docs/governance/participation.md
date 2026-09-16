@@ -38,7 +38,7 @@ Contributors who demonstrate sustained, high-quality work may be nominated as ma
 
 The long-term model is a VIDS Consortium with formal representation from academic institutions, clinical organisations and industry adopters. The transition begins once VIDS has active external maintainers and multiple independent implementations. Until then, governance is held by the Steering Committee and recorded in public, so that the model can be inspected before anyone has to rely on it.
 
-An **Advisory Council** of independent experts advises on strategy, clinical relevance and adoption. The Council is advisory: it does not define VIDS conformance and does not exercise Steering Committee authority. Members serve as individuals rather than as representatives of their employers.
+An **[Advisory Council](advisory-council.md)** of independent experts advises on strategy, clinical relevance and adoption. The Council is advisory: it does not define VIDS conformance and does not exercise Steering Committee authority. Members serve as individuals rather than as representatives of their employers.
 
 ## Contact
 
