@@ -45,7 +45,7 @@ The Steering Committee maintains the Specification, the validator, and related i
 
 A member does not approve a decision where a material conflict of interest makes independent participation inappropriate. A recused member is excluded from that specific decision, and the resolution is documented in the relevant GitHub discussion or Maintainer Decision.
 
-An **Advisory Council** of independent experts advises on strategy, clinical relevance and adoption. The Council is advisory: it does not define VIDS conformance and does not exercise Steering Committee authority. Members serve as individuals rather than as representatives of their employers. Appointments are approved by the Steering Committee under the normal decision rule.
+An **[Advisory Council](advisory-council.md)** of independent experts advises on strategy, clinical relevance and adoption. The Council is advisory: it does not define VIDS conformance and does not exercise Steering Committee authority. Members serve as individuals rather than as representatives of their employers. Appointments are approved by the Steering Committee under the normal decision rule.
 
 ## How a decision is recorded
 
