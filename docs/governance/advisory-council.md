@@ -16,6 +16,13 @@ Dr. Singhal holds a degree in applied mathematics and works at the intersection 
 
 Vera Damerjian Pieters, PhD, is the founder of VeraDP, an R&D leadership and advisory practice specializing in medical imaging AI. Drawing on a PhD in Computer Vision and over 10 years of applied MedTech experience, she helps organizations build defensible R&D, with a focus on data AI-readiness and risk analysis, experiment and evaluation design, state-of-the-art positioning, and technical assessment. Her work also includes skill transfer through specialized training and masterclasses, translating research and technical expertise into actionable knowledge. Her current research explores how data understanding and qualification can better inform R&D decisions in medical imaging AI.
 
+
+## Additional Members
+
+### Mohannad Hussain, CIIP, FSIIM, Principal Consultant, Techie Maestro
+
+Mohannad Hussain is an independent consultant in Medical Imaging. He serves multiple roles including Technical Advisory and Project Management roles within SIIM, RSNA and IHE among others. A software developer by training, he stumbled into medical imaging informatics nearly 15 years ago and found his purpose there, never losing sight of the important role our industry can play in improving patient care. Mohannad is a keen advocate for interoperability in healthcare and a steadfast supporter of open-source software.
+
 ## A Growing Council
 
 Additional Advisory Council appointments are in progress and will be announced as they are completed. The Council will continue to bring together perspectives across clinical practice, imaging research, regulatory affairs, and health-system data governance.
