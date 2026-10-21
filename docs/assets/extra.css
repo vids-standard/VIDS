@@ -119,3 +119,53 @@
 .vids-cite code {
   font-size: 0.8rem;
 }
+
+/* ── Advisory Council member cards ── */
+.vids-member {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin: 1.75rem 0 2.25rem;
+}
+
+.md-typeset .vids-member__photo {
+  flex: 0 0 140px;
+  width: 140px;
+  height: 140px;
+  max-width: none;
+  border-radius: 12px;
+  object-fit: cover;
+  margin: 0.35rem 0 0;
+}
+
+.md-typeset .vids-member__photo--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color--light);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.vids-member__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.md-typeset .vids-member__body h3 {
+  margin-top: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .vids-member {
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .md-typeset .vids-member__photo {
+    flex-basis: auto;
+    width: 112px;
+    height: 112px;
+  }
+}
