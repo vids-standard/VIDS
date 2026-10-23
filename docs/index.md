@@ -209,6 +209,23 @@ VIDS is complementary to existing standards — it fills the gap none of them co
 
 ---
 
+## Reference Implementations
+
+See VIDS applied to real imaging data. Each reference implementation is archived on Zenodo with a DOI, so you can run the validator yourself and compare results.
+
+- **LIDC-Hybrid-100**: 100 lung CT volumes with consensus nodule segmentations; 21 of 21 rules PASS under the Full profile.
+- **VIDS-Fundus 1.0 (IDRiD)**: the VIDS metadata layer for a public diabetic retinopathy fundus dataset.
+
+[See all reference implementations →](reference-implementations.md){ .md-button }
+
+---
+
+## Who Maintains VIDS
+
+VIDS is maintained by a [Steering Committee](governance/steering-committee.md) at Princeton Medical Systems and advised by an independent [Advisory Council](governance/advisory-council.md). Every decision is public on GitHub; see [How VIDS is Governed](governance/index.md).
+
+---
+
 ## For Buyers of Medical Imaging Datasets
 
 Acquiring annotated imaging datasets from external vendors? VIDS provides the procurement infrastructure to make dataset quality verifiable before acceptance.
@@ -256,6 +273,7 @@ Specification: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) · Tool
 [:material-github: GitHub](https://github.com/vids-standard/vids-standard){ .md-button }
 [:material-language-python: PyPI](https://pypi.org/project/vids-validator/){ .md-button }
 [:material-file-document: Full Specification](specification/index.md){ .md-button .md-button--primary }
+[:material-database-check: Reference Implementations](reference-implementations.md){ .md-button }
 [:material-clipboard-text: For Buyers](for-buyers/index.md){ .md-button }
 
 </div>

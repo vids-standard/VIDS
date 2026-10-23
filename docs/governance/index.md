@@ -35,24 +35,7 @@ Decisions concerning governance, Steering Committee membership, or other signifi
 
 ## Steering Committee
 
-<div class="vids-people">
-<figure class="vids-person">
-<img src="../../assets/council/joan-s-muthu.jpg" alt="Dr. Joan S. Muthu" width="240" height="240" loading="lazy">
-<figcaption><strong>Dr. Joan S. Muthu</strong><span>Co-Founder and CTO</span></figcaption>
-</figure>
-<figure class="vids-person">
-<img src="../../assets/council/john-xavier.jpg" alt="John Xavier" width="240" height="240" loading="lazy">
-<figcaption><strong>John Xavier</strong><span>Co-Founder and Head of US and Global Operations</span></figcaption>
-</figure>
-<figure class="vids-person">
-<img src="../../assets/council/john-shalen-r.jpg" alt="John Shalen R." width="240" height="240" loading="lazy">
-<figcaption><strong>John Shalen R.</strong><span>Co-Founder and COO</span></figcaption>
-</figure>
-</div>
-
-The Steering Committee maintains the Specification, the validator, and related infrastructure; reviews substantive changes; approves major or breaking changes; makes governance and policy decisions; manages its own membership; and protects the neutrality and integrity of VIDS.
-
-A member does not approve a decision where a material conflict of interest makes independent participation inappropriate. A recused member is excluded from that specific decision, and the resolution is documented in the relevant GitHub discussion or Maintainer Decision.
+VIDS is maintained by a three-member Steering Committee: Dr. Joan S. Muthu, John Xavier and John Shalen R. It reviews substantive changes, approves major or breaking changes, and makes governance and policy decisions. See the **[Steering Committee](steering-committee.md)** page for members and responsibilities.
 
 An **[Advisory Council](advisory-council.md)** of independent experts advises on strategy, clinical relevance and adoption. The Council is advisory: it does not define VIDS conformance and does not exercise Steering Committee authority. Members serve as individuals rather than as representatives of their employers. Appointments are approved by the Steering Committee under the normal decision rule.
 
