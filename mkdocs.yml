@@ -34,7 +34,6 @@ theme:
     - navigation.sections
     - navigation.top
     - navigation.footer
-    - navigation.indexes
     - search.suggest
     - search.highlight
     - content.code.copy
@@ -116,17 +115,18 @@ nav:
     - Online Validator: validator/online-validator.md
     - Interactive Demo: validator/interactive-demo.md
     - CLI Reference: validator/cli-reference.md
+  - Reference Implementations: reference-implementations.md
+  - Published Benchmark: published-benchmark.md
+  - Governance:
+    - How VIDS is Governed: governance/index.md
+    - Steering Committee: governance/steering-committee.md
+    - Advisory Council: governance/advisory-council.md
+    - Decision Records: governance/decision-records.md
+    - What VIDS Checks: governance/what-vids-checks.md
+    - Participation: governance/participation.md
   - For Buyers:
     - Overview: for-buyers/index.md
     - Reference Procurement Language: for-buyers/sow-addendum.md
     - Dataset Documentation Assessment: for-buyers/documentation-assessment.md
     - Assessment Methodology: for-buyers/assessment-methodology.md
     - Validation Report: for-buyers/validation-report.md
-  - Published Benchmark: published-benchmark.md
-  - Governance:
-    - How VIDS is Governed: governance/index.md
-    - What VIDS Checks: governance/what-vids-checks.md
-    - Decision Records: governance/decision-records.md
-    - Advisory Council: governance/advisory-council.md
-    - Participation: governance/participation.md
-  - GitHub: https://github.com/vids-standard/vids-standard
