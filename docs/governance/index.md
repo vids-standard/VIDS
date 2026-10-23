@@ -35,11 +35,20 @@ Decisions concerning governance, Steering Committee membership, or other signifi
 
 ## Steering Committee
 
-| Member | Role |
-|--------|------|
-| Dr. Joan S. Muthu | Co-Founder and CTO |
-| John Xavier | Co-Founder and Head of US and Global Operations |
-| John Shalen R. | Co-Founder and COO |
+<div class="vids-people">
+<figure class="vids-person">
+<img src="../../assets/council/joan-s-muthu.jpg" alt="Dr. Joan S. Muthu" width="240" height="240" loading="lazy">
+<figcaption><strong>Dr. Joan S. Muthu</strong><span>Co-Founder and CTO</span></figcaption>
+</figure>
+<figure class="vids-person">
+<img src="../../assets/council/john-xavier.jpg" alt="John Xavier" width="240" height="240" loading="lazy">
+<figcaption><strong>John Xavier</strong><span>Co-Founder and Head of US and Global Operations</span></figcaption>
+</figure>
+<figure class="vids-person">
+<img src="../../assets/council/john-shalen-r.jpg" alt="John Shalen R." width="240" height="240" loading="lazy">
+<figcaption><strong>John Shalen R.</strong><span>Co-Founder and COO</span></figcaption>
+</figure>
+</div>
 
 The Steering Committee maintains the Specification, the validator, and related infrastructure; reviews substantive changes; approves major or breaking changes; makes governance and policy decisions; manages its own membership; and protects the neutrality and integrity of VIDS.
 

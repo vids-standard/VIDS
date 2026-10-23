@@ -169,3 +169,59 @@
     height: 112px;
   }
 }
+
+/* ── Steering Committee grid ── */
+.md-typeset .vids-people {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.md-typeset .vids-person {
+  margin: 0;
+  width: auto;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .md-typeset .vids-people {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.md-typeset .vids-person img {
+  width: 140px;
+  height: 140px;
+  max-width: none;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.md-typeset .vids-person figcaption {
+  margin: 0.75rem 0 0;
+  max-width: none;
+  font-style: normal;
+}
+
+.md-typeset .vids-person figcaption strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.md-typeset .vids-person figcaption span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+  line-height: 1.45;
+}
+
+/* Hairline so photos with white backgrounds keep an edge */
+.md-typeset .vids-person img,
+.md-typeset img.vids-member__photo {
+  box-shadow: 0 0 0 1px var(--md-default-fg-color--lightest);
+}
